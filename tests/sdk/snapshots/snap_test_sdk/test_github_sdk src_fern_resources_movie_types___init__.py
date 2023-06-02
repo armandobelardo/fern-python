@@ -3,6 +3,6 @@
 from .actress import Actress
 from .movie import Movie
 from .movie_id import MovieId
-from .person import Person, Person_Actor, Person_Actress, Person_Director
+from .person import Base, Person, Person_Actor, Person_Actress, Person_Director
 
-__all__ = ["Actress", "Movie", "MovieId", "Person", "Person_Actor", "Person_Actress", "Person_Director"]
+__all__ = ["Actress", "Base", "Movie", "MovieId", "Person", "Person_Actor", "Person_Actress", "Person_Director"]

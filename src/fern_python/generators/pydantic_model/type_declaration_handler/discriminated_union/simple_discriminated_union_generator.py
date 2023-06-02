@@ -36,7 +36,7 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
         single_union_type_references: List[LocalClassReference] = []
 
         class_reference_for_base = None
-        if len(self._union.base_properties) < 0:
+        if len(self._union.base_properties) > 0:
             is_base_class_name_present = False
             for single_union_type in self._union.types:
                 type_union = single_union_type.shape.get_as_union()

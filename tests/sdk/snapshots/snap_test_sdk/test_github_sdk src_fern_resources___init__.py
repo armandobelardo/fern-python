@@ -3,6 +3,7 @@
 from . import movie
 from .movie import (
     Actress,
+    Base,
     InvalidMovieError,
     Movie,
     MovieAlreadyExistsError,
@@ -16,6 +17,7 @@ from .movie import (
 
 __all__ = [
     "Actress",
+    "Base",
     "InvalidMovieError",
     "Movie",
     "MovieAlreadyExistsError",

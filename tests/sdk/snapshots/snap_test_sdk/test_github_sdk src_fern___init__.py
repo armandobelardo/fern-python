@@ -2,6 +2,7 @@
 
 from .resources import (
     Actress,
+    Base,
     InvalidMovieError,
     Movie,
     MovieAlreadyExistsError,
@@ -16,6 +17,7 @@ from .resources import (
 
 __all__ = [
     "Actress",
+    "Base",
     "InvalidMovieError",
     "Movie",
     "MovieAlreadyExistsError",
