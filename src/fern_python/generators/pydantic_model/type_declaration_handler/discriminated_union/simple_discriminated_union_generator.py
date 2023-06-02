@@ -4,7 +4,9 @@ import fern.ir.resources as ir_types
 
 from fern_python.codegen import AST, LocalClassReference, SourceFile
 from fern_python.codegen.ast.references.class_reference import ClassReference
-from fern_python.generators.pydantic_model.fern_aware_pydantic_model import FernAwarePydanticModel
+from fern_python.generators.pydantic_model.fern_aware_pydantic_model import (
+    FernAwarePydanticModel,
+)
 from fern_python.pydantic_codegen import PydanticField, PydanticModel
 
 from ...context import PydanticGeneratorContext
@@ -32,16 +34,23 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
     def generate(self) -> None:
 
         single_union_type_references: List[LocalClassReference] = []
-        
+
         class_reference_for_base = None
-        if len(self._union.base_properties) < 0: 
+        if len(self._union.base_properties) < 0:
             is_base_class_name_present = False
             for single_union_type in self._union.types:
                 type_union = single_union_type.shape.get_as_union()
-                if type_union.properties_type == "samePropertiesAsObject" and type_union.name.pascal_case == SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME:
+                if (
+                    type_union.properties_type == "samePropertiesAsObject"
+                    and type_union.name.pascal_case == SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
+                ):
                     is_base_class_name_present = True
 
-            base_class_name = SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME_WITH_UNDERSCORE if is_base_class_name_present else SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
+            base_class_name = (
+                SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME_WITH_UNDERSCORE
+                if is_base_class_name_present
+                else SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
+            )
             with FernAwarePydanticModel(
                 class_name=base_class_name,
                 type_name=self._name,
@@ -66,16 +75,16 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
         for single_union_type in self._union.types:
 
             single_union_type_class_reference = single_union_type.shape.visit(
-                    same_properties_as_object=lambda type_name: self._context.get_class_reference_for_type_name(type_name),
-                    single_property=lambda property_: None,
-                    no_properties=lambda: None,
-                )
+                same_properties_as_object=lambda type_name: self._context.get_class_reference_for_type_name(type_name),
+                single_property=lambda property_: None,
+                no_properties=lambda: None,
+            )
             base_models = []
             if single_union_type_class_reference is not None:
                 base_models.append(single_union_type_class_reference)
             if class_reference_for_base is not None:
                 base_models.append(class_reference_for_base)
-            
+
             with PydanticModel(
                 name=f"{self._name.name.pascal_case.unsafe_name}_{single_union_type.discriminant_value.name.pascal_case.unsafe_name}",
                 source_file=self._source_file,
