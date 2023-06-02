@@ -59,6 +59,7 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
                 custom_config=self._custom_config,
                 source_file=self._source_file,
                 docstring=None,
+                should_export=False,
             ) as base_union_pydantic_model:
                 for property in self._union.base_properties:
                     base_union_pydantic_model.add_field(
@@ -91,7 +92,6 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
                 base_models=base_models,
                 frozen=self._custom_config.frozen,
                 orm_mode=self._custom_config.orm_mode,
-                should_export=False,
             ) as internal_pydantic_model_for_single_union_type:
 
                 internal_single_union_type = internal_pydantic_model_for_single_union_type.to_reference()

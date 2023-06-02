@@ -2,24 +2,28 @@
 
 from .resources import (
     Actress,
-    Base,
     InvalidMovieError,
     Movie,
     MovieAlreadyExistsError,
     MovieId,
     MovieNotFoundError,
     Person,
+    Person_Actor,
+    Person_Actress,
+    Person_Director,
     movie,
 )
 
 __all__ = [
     "Actress",
-    "Base",
     "InvalidMovieError",
     "Movie",
     "MovieAlreadyExistsError",
     "MovieId",
     "MovieNotFoundError",
     "Person",
+    "Person_Actor",
+    "Person_Actress",
+    "Person_Director",
     "movie",
 ]
