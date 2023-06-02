@@ -6,7 +6,6 @@ from .types import (
     PlaylistCreateRequest,
     PlaylistId,
     PlaylistIdNotFoundErrorBody,
-    PlaylistIdNotFoundErrorBody_PlaylistId,
     ReservedKeywordEnum,
     UpdatePlaylistRequest,
 )
@@ -17,7 +16,6 @@ __all__ = [
     "PlaylistId",
     "PlaylistIdNotFoundError",
     "PlaylistIdNotFoundErrorBody",
-    "PlaylistIdNotFoundErrorBody_PlaylistId",
     "ReservedKeywordEnum",
     "UnauthorizedError",
     "UpdatePlaylistRequest",

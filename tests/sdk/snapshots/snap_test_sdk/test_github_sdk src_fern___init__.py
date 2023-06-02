@@ -9,9 +9,6 @@ from .resources import (
     MovieId,
     MovieNotFoundError,
     Person,
-    Person_Actor,
-    Person_Actress,
-    Person_Director,
     movie,
 )
 
@@ -24,8 +21,5 @@ __all__ = [
     "MovieId",
     "MovieNotFoundError",
     "Person",
-    "Person_Actor",
-    "Person_Actress",
-    "Person_Director",
     "movie",
 ]
