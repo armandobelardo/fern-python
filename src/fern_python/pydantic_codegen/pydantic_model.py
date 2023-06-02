@@ -40,7 +40,9 @@ class PydanticModel:
             docstring=AST.Docstring(docstring) if docstring is not None else None,
         )
         self._base_models = base_models or []
-        self._local_class_reference = (parent or source_file).add_class_declaration(declaration=self._class_declaration, should_export=should_export)
+        self._local_class_reference = (parent or source_file).add_class_declaration(
+            declaration=self._class_declaration, should_export=should_export
+        )
         self._has_aliases = False
         self._root_type: Optional[AST.TypeHint] = None
         self._fields: List[PydanticField] = []
