@@ -61,17 +61,17 @@ types:
       rating:
         type: double
         docs: The rating scale is one to five stars
-  
-  Person: 
+
+  Person:
     base-properties:
       name: string
-    union: 
+    union:
       actor: string
       actress: Actress
       director: {}
-  
-  Actress: 
-    properties: 
+
+  Actress:
+    properties:
       previousMovies: list<string>
 
 errors:
