@@ -256,7 +256,7 @@ class TestSubmissionStatusV2(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_test_submission_status_v_2_validate(
+    def _pre_validate_test_submission_status_v_2(
         cls, values: TestSubmissionStatusV2.Partial
     ) -> TestSubmissionStatusV2.Partial:
         for validator in TestSubmissionStatusV2.Validators._pre_validators:
@@ -264,7 +264,7 @@ class TestSubmissionStatusV2(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_test_submission_status_v_2_validate(
+    def _post_validate_test_submission_status_v_2(
         cls, values: TestSubmissionStatusV2.Partial
     ) -> TestSubmissionStatusV2.Partial:
         for validator in TestSubmissionStatusV2.Validators._post_validators:

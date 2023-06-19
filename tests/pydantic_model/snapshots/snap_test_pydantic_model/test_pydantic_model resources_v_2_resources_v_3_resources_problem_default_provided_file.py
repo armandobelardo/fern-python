@@ -162,7 +162,7 @@ class DefaultProvidedFile(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_v_2_v_3_default_provided_file_validate(
+    def _pre_validate_v_2_v_3_default_provided_file(
         cls, values: DefaultProvidedFile.Partial
     ) -> DefaultProvidedFile.Partial:
         for validator in DefaultProvidedFile.Validators._pre_validators:
@@ -170,7 +170,7 @@ class DefaultProvidedFile(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_v_2_v_3_default_provided_file_validate(
+    def _post_validate_v_2_v_3_default_provided_file(
         cls, values: DefaultProvidedFile.Partial
     ) -> DefaultProvidedFile.Partial:
         for validator in DefaultProvidedFile.Validators._post_validators:

@@ -158,7 +158,7 @@ class TestCaseResultWithStdout(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_test_case_result_with_stdout_validate(
+    def _pre_validate_test_case_result_with_stdout(
         cls, values: TestCaseResultWithStdout.Partial
     ) -> TestCaseResultWithStdout.Partial:
         for validator in TestCaseResultWithStdout.Validators._pre_validators:
@@ -166,7 +166,7 @@ class TestCaseResultWithStdout(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_test_case_result_with_stdout_validate(
+    def _post_validate_test_case_result_with_stdout(
         cls, values: TestCaseResultWithStdout.Partial
     ) -> TestCaseResultWithStdout.Partial:
         for validator in TestCaseResultWithStdout.Validators._post_validators:

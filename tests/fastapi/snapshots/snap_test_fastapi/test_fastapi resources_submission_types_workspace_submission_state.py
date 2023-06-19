@@ -118,7 +118,7 @@ class WorkspaceSubmissionState(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_workspace_submission_state_validate(
+    def _pre_validate_workspace_submission_state(
         cls, values: WorkspaceSubmissionState.Partial
     ) -> WorkspaceSubmissionState.Partial:
         for validator in WorkspaceSubmissionState.Validators._pre_validators:
@@ -126,7 +126,7 @@ class WorkspaceSubmissionState(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_workspace_submission_state_validate(
+    def _post_validate_workspace_submission_state(
         cls, values: WorkspaceSubmissionState.Partial
     ) -> WorkspaceSubmissionState.Partial:
         for validator in WorkspaceSubmissionState.Validators._post_validators:

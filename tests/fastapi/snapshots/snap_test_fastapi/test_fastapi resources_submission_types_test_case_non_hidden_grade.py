@@ -248,7 +248,7 @@ class TestCaseNonHiddenGrade(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_test_case_non_hidden_grade_validate(
+    def _pre_validate_test_case_non_hidden_grade(
         cls, values: TestCaseNonHiddenGrade.Partial
     ) -> TestCaseNonHiddenGrade.Partial:
         for validator in TestCaseNonHiddenGrade.Validators._pre_validators:
@@ -256,7 +256,7 @@ class TestCaseNonHiddenGrade(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_test_case_non_hidden_grade_validate(
+    def _post_validate_test_case_non_hidden_grade(
         cls, values: TestCaseNonHiddenGrade.Partial
     ) -> TestCaseNonHiddenGrade.Partial:
         for validator in TestCaseNonHiddenGrade.Validators._post_validators:
