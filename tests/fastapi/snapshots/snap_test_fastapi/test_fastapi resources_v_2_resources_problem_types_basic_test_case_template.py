@@ -256,7 +256,7 @@ class BasicTestCaseTemplate(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_basic_test_case_template_validate(
+    def _pre_v_2_basic_test_case_template_validate(
         cls, values: BasicTestCaseTemplate.Partial
     ) -> BasicTestCaseTemplate.Partial:
         for validator in BasicTestCaseTemplate.Validators._pre_validators:
@@ -264,7 +264,7 @@ class BasicTestCaseTemplate(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_basic_test_case_template_validate(
+    def _post_v_2_basic_test_case_template_validate(
         cls, values: BasicTestCaseTemplate.Partial
     ) -> BasicTestCaseTemplate.Partial:
         for validator in BasicTestCaseTemplate.Validators._post_validators:

@@ -169,7 +169,7 @@ class InitializeProblemRequest(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preinitialize_problem_request_validate(
+    def _pre_initialize_problem_request_validate(
         cls, values: InitializeProblemRequest.Partial
     ) -> InitializeProblemRequest.Partial:
         for validator in InitializeProblemRequest.Validators._pre_validators:
@@ -177,7 +177,7 @@ class InitializeProblemRequest(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postinitialize_problem_request_validate(
+    def _post_initialize_problem_request_validate(
         cls, values: InitializeProblemRequest.Partial
     ) -> InitializeProblemRequest.Partial:
         for validator in InitializeProblemRequest.Validators._post_validators:

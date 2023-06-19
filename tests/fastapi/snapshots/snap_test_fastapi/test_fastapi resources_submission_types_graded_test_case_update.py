@@ -157,13 +157,15 @@ class GradedTestCaseUpdate(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pregraded_test_case_update_validate(cls, values: GradedTestCaseUpdate.Partial) -> GradedTestCaseUpdate.Partial:
+    def _pre_graded_test_case_update_validate(
+        cls, values: GradedTestCaseUpdate.Partial
+    ) -> GradedTestCaseUpdate.Partial:
         for validator in GradedTestCaseUpdate.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postgraded_test_case_update_validate(
+    def _post_graded_test_case_update_validate(
         cls, values: GradedTestCaseUpdate.Partial
     ) -> GradedTestCaseUpdate.Partial:
         for validator in GradedTestCaseUpdate.Validators._post_validators:

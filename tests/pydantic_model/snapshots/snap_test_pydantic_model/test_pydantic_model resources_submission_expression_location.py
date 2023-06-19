@@ -150,13 +150,13 @@ class ExpressionLocation(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preexpression_location_validate(cls, values: ExpressionLocation.Partial) -> ExpressionLocation.Partial:
+    def _pre_expression_location_validate(cls, values: ExpressionLocation.Partial) -> ExpressionLocation.Partial:
         for validator in ExpressionLocation.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postexpression_location_validate(cls, values: ExpressionLocation.Partial) -> ExpressionLocation.Partial:
+    def _post_expression_location_validate(cls, values: ExpressionLocation.Partial) -> ExpressionLocation.Partial:
         for validator in ExpressionLocation.Validators._post_validators:
             values = validator(values)
         return values

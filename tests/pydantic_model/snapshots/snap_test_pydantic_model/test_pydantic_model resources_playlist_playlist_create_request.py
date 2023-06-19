@@ -156,7 +156,7 @@ class PlaylistCreateRequest(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preplaylist_create_request_validate(
+    def _pre_playlist_create_request_validate(
         cls, values: PlaylistCreateRequest.Partial
     ) -> PlaylistCreateRequest.Partial:
         for validator in PlaylistCreateRequest.Validators._pre_validators:
@@ -164,7 +164,7 @@ class PlaylistCreateRequest(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postplaylist_create_request_validate(
+    def _post_playlist_create_request_validate(
         cls, values: PlaylistCreateRequest.Partial
     ) -> PlaylistCreateRequest.Partial:
         for validator in PlaylistCreateRequest.Validators._post_validators:

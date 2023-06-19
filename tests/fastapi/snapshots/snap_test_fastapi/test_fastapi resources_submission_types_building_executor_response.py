@@ -167,7 +167,7 @@ class BuildingExecutorResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prebuilding_executor_response_validate(
+    def _pre_building_executor_response_validate(
         cls, values: BuildingExecutorResponse.Partial
     ) -> BuildingExecutorResponse.Partial:
         for validator in BuildingExecutorResponse.Validators._pre_validators:
@@ -175,7 +175,7 @@ class BuildingExecutorResponse(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postbuilding_executor_response_validate(
+    def _post_building_executor_response_validate(
         cls, values: BuildingExecutorResponse.Partial
     ) -> BuildingExecutorResponse.Partial:
         for validator in BuildingExecutorResponse.Validators._post_validators:

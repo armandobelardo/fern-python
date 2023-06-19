@@ -154,13 +154,13 @@ class StderrResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prestderr_response_validate(cls, values: StderrResponse.Partial) -> StderrResponse.Partial:
+    def _pre_stderr_response_validate(cls, values: StderrResponse.Partial) -> StderrResponse.Partial:
         for validator in StderrResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _poststderr_response_validate(cls, values: StderrResponse.Partial) -> StderrResponse.Partial:
+    def _post_stderr_response_validate(cls, values: StderrResponse.Partial) -> StderrResponse.Partial:
         for validator in StderrResponse.Validators._post_validators:
             values = validator(values)
         return values

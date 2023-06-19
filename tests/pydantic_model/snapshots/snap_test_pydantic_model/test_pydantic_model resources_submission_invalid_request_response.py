@@ -157,7 +157,7 @@ class InvalidRequestResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preinvalid_request_response_validate(
+    def _pre_invalid_request_response_validate(
         cls, values: InvalidRequestResponse.Partial
     ) -> InvalidRequestResponse.Partial:
         for validator in InvalidRequestResponse.Validators._pre_validators:
@@ -165,7 +165,7 @@ class InvalidRequestResponse(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postinvalid_request_response_validate(
+    def _post_invalid_request_response_validate(
         cls, values: InvalidRequestResponse.Partial
     ) -> InvalidRequestResponse.Partial:
         for validator in InvalidRequestResponse.Validators._post_validators:

@@ -226,7 +226,7 @@ class GetExecutionSessionStateResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preget_execution_session_state_response_validate(
+    def _pre_get_execution_session_state_response_validate(
         cls, values: GetExecutionSessionStateResponse.Partial
     ) -> GetExecutionSessionStateResponse.Partial:
         for validator in GetExecutionSessionStateResponse.Validators._pre_validators:
@@ -234,7 +234,7 @@ class GetExecutionSessionStateResponse(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postget_execution_session_state_response_validate(
+    def _post_get_execution_session_state_response_validate(
         cls, values: GetExecutionSessionStateResponse.Partial
     ) -> GetExecutionSessionStateResponse.Partial:
         for validator in GetExecutionSessionStateResponse.Validators._post_validators:

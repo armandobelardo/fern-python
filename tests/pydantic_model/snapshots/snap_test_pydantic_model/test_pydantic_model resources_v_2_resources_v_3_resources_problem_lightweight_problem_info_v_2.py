@@ -263,7 +263,7 @@ class LightweightProblemInfoV2(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_lightweight_problem_info_v_2_validate(
+    def _pre_v_2_v_3_lightweight_problem_info_v_2_validate(
         cls, values: LightweightProblemInfoV2.Partial
     ) -> LightweightProblemInfoV2.Partial:
         for validator in LightweightProblemInfoV2.Validators._pre_validators:
@@ -271,7 +271,7 @@ class LightweightProblemInfoV2(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_lightweight_problem_info_v_2_validate(
+    def _post_v_2_v_3_lightweight_problem_info_v_2_validate(
         cls, values: LightweightProblemInfoV2.Partial
     ) -> LightweightProblemInfoV2.Partial:
         for validator in LightweightProblemInfoV2.Validators._post_validators:

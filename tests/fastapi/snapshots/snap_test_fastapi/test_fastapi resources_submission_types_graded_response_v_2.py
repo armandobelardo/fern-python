@@ -160,13 +160,13 @@ class GradedResponseV2(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pregraded_response_v_2_validate(cls, values: GradedResponseV2.Partial) -> GradedResponseV2.Partial:
+    def _pre_graded_response_v_2_validate(cls, values: GradedResponseV2.Partial) -> GradedResponseV2.Partial:
         for validator in GradedResponseV2.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postgraded_response_v_2_validate(cls, values: GradedResponseV2.Partial) -> GradedResponseV2.Partial:
+    def _post_graded_response_v_2_validate(cls, values: GradedResponseV2.Partial) -> GradedResponseV2.Partial:
         for validator in GradedResponseV2.Validators._post_validators:
             values = validator(values)
         return values

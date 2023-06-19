@@ -157,13 +157,13 @@ class RunningResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prerunning_response_validate(cls, values: RunningResponse.Partial) -> RunningResponse.Partial:
+    def _pre_running_response_validate(cls, values: RunningResponse.Partial) -> RunningResponse.Partial:
         for validator in RunningResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postrunning_response_validate(cls, values: RunningResponse.Partial) -> RunningResponse.Partial:
+    def _post_running_response_validate(cls, values: RunningResponse.Partial) -> RunningResponse.Partial:
         for validator in RunningResponse.Validators._post_validators:
             values = validator(values)
         return values

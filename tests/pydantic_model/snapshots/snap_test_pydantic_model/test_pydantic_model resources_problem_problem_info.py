@@ -486,13 +486,13 @@ class ProblemInfo(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preproblem_info_validate(cls, values: ProblemInfo.Partial) -> ProblemInfo.Partial:
+    def _pre_problem_info_validate(cls, values: ProblemInfo.Partial) -> ProblemInfo.Partial:
         for validator in ProblemInfo.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postproblem_info_validate(cls, values: ProblemInfo.Partial) -> ProblemInfo.Partial:
+    def _post_problem_info_validate(cls, values: ProblemInfo.Partial) -> ProblemInfo.Partial:
         for validator in ProblemInfo.Validators._post_validators:
             values = validator(values)
         return values

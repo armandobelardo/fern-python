@@ -168,7 +168,7 @@ class TestCaseWithExpectedResult(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pretest_case_with_expected_result_validate(
+    def _pre_test_case_with_expected_result_validate(
         cls, values: TestCaseWithExpectedResult.Partial
     ) -> TestCaseWithExpectedResult.Partial:
         for validator in TestCaseWithExpectedResult.Validators._pre_validators:
@@ -176,7 +176,7 @@ class TestCaseWithExpectedResult(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _posttest_case_with_expected_result_validate(
+    def _post_test_case_with_expected_result_validate(
         cls, values: TestCaseWithExpectedResult.Partial
     ) -> TestCaseWithExpectedResult.Partial:
         for validator in TestCaseWithExpectedResult.Validators._post_validators:

@@ -167,7 +167,7 @@ class GetBasicSolutionFileRequest(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_get_basic_solution_file_request_validate(
+    def _pre_v_2_v_3_get_basic_solution_file_request_validate(
         cls, values: GetBasicSolutionFileRequest.Partial
     ) -> GetBasicSolutionFileRequest.Partial:
         for validator in GetBasicSolutionFileRequest.Validators._pre_validators:
@@ -175,7 +175,7 @@ class GetBasicSolutionFileRequest(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_get_basic_solution_file_request_validate(
+    def _post_v_2_v_3_get_basic_solution_file_request_validate(
         cls, values: GetBasicSolutionFileRequest.Partial
     ) -> GetBasicSolutionFileRequest.Partial:
         for validator in GetBasicSolutionFileRequest.Validators._post_validators:

@@ -155,7 +155,7 @@ class FunctionImplementation(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_function_implementation_validate(
+    def _pre_v_2_v_3_function_implementation_validate(
         cls, values: FunctionImplementation.Partial
     ) -> FunctionImplementation.Partial:
         for validator in FunctionImplementation.Validators._pre_validators:
@@ -163,7 +163,7 @@ class FunctionImplementation(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_function_implementation_validate(
+    def _post_v_2_v_3_function_implementation_validate(
         cls, values: FunctionImplementation.Partial
     ) -> FunctionImplementation.Partial:
         for validator in FunctionImplementation.Validators._post_validators:

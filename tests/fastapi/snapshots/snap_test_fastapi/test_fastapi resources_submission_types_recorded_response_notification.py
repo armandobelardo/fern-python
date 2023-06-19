@@ -218,7 +218,7 @@ class RecordedResponseNotification(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prerecorded_response_notification_validate(
+    def _pre_recorded_response_notification_validate(
         cls, values: RecordedResponseNotification.Partial
     ) -> RecordedResponseNotification.Partial:
         for validator in RecordedResponseNotification.Validators._pre_validators:
@@ -226,7 +226,7 @@ class RecordedResponseNotification(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postrecorded_response_notification_validate(
+    def _post_recorded_response_notification_validate(
         cls, values: RecordedResponseNotification.Partial
     ) -> RecordedResponseNotification.Partial:
         for validator in RecordedResponseNotification.Validators._post_validators:

@@ -169,7 +169,7 @@ class UnexpectedLanguageError(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preunexpected_language_error_validate(
+    def _pre_unexpected_language_error_validate(
         cls, values: UnexpectedLanguageError.Partial
     ) -> UnexpectedLanguageError.Partial:
         for validator in UnexpectedLanguageError.Validators._pre_validators:
@@ -177,7 +177,7 @@ class UnexpectedLanguageError(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postunexpected_language_error_validate(
+    def _post_unexpected_language_error_validate(
         cls, values: UnexpectedLanguageError.Partial
     ) -> UnexpectedLanguageError.Partial:
         for validator in UnexpectedLanguageError.Validators._post_validators:

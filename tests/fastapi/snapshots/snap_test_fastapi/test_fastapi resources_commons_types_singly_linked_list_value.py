@@ -156,7 +156,7 @@ class SinglyLinkedListValue(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _presingly_linked_list_value_validate(
+    def _pre_singly_linked_list_value_validate(
         cls, values: SinglyLinkedListValue.Partial
     ) -> SinglyLinkedListValue.Partial:
         for validator in SinglyLinkedListValue.Validators._pre_validators:
@@ -164,7 +164,7 @@ class SinglyLinkedListValue(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postsingly_linked_list_value_validate(
+    def _post_singly_linked_list_value_validate(
         cls, values: SinglyLinkedListValue.Partial
     ) -> SinglyLinkedListValue.Partial:
         for validator in SinglyLinkedListValue.Validators._post_validators:

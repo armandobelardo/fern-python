@@ -259,7 +259,7 @@ class ExecutionSessionResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preexecution_session_response_validate(
+    def _pre_execution_session_response_validate(
         cls, values: ExecutionSessionResponse.Partial
     ) -> ExecutionSessionResponse.Partial:
         for validator in ExecutionSessionResponse.Validators._pre_validators:
@@ -267,7 +267,7 @@ class ExecutionSessionResponse(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postexecution_session_response_validate(
+    def _post_execution_session_response_validate(
         cls, values: ExecutionSessionResponse.Partial
     ) -> ExecutionSessionResponse.Partial:
         for validator in ExecutionSessionResponse.Validators._post_validators:

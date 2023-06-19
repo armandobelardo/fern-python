@@ -165,7 +165,7 @@ class TestCaseImplementation(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_test_case_implementation_validate(
+    def _pre_v_2_v_3_test_case_implementation_validate(
         cls, values: TestCaseImplementation.Partial
     ) -> TestCaseImplementation.Partial:
         for validator in TestCaseImplementation.Validators._pre_validators:
@@ -173,7 +173,7 @@ class TestCaseImplementation(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_test_case_implementation_validate(
+    def _post_v_2_v_3_test_case_implementation_validate(
         cls, values: TestCaseImplementation.Partial
     ) -> TestCaseImplementation.Partial:
         for validator in TestCaseImplementation.Validators._post_validators:

@@ -368,13 +368,13 @@ class TraceResponseV2(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pretrace_response_v_2_validate(cls, values: TraceResponseV2.Partial) -> TraceResponseV2.Partial:
+    def _pre_trace_response_v_2_validate(cls, values: TraceResponseV2.Partial) -> TraceResponseV2.Partial:
         for validator in TraceResponseV2.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _posttrace_response_v_2_validate(cls, values: TraceResponseV2.Partial) -> TraceResponseV2.Partial:
+    def _post_trace_response_v_2_validate(cls, values: TraceResponseV2.Partial) -> TraceResponseV2.Partial:
         for validator in TraceResponseV2.Validators._post_validators:
             values = validator(values)
         return values

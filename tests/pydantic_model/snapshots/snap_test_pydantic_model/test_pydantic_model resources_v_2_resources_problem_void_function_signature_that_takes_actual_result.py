@@ -183,7 +183,7 @@ class VoidFunctionSignatureThatTakesActualResult(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_void_function_signature_that_takes_actual_result_validate(
+    def _pre_v_2_void_function_signature_that_takes_actual_result_validate(
         cls, values: VoidFunctionSignatureThatTakesActualResult.Partial
     ) -> VoidFunctionSignatureThatTakesActualResult.Partial:
         for validator in VoidFunctionSignatureThatTakesActualResult.Validators._pre_validators:
@@ -191,7 +191,7 @@ class VoidFunctionSignatureThatTakesActualResult(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_void_function_signature_that_takes_actual_result_validate(
+    def _post_v_2_void_function_signature_that_takes_actual_result_validate(
         cls, values: VoidFunctionSignatureThatTakesActualResult.Partial
     ) -> VoidFunctionSignatureThatTakesActualResult.Partial:
         for validator in VoidFunctionSignatureThatTakesActualResult.Validators._post_validators:

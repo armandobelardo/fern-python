@@ -203,7 +203,7 @@ class GenericCreateProblemError(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pregeneric_create_problem_error_validate(
+    def _pre_generic_create_problem_error_validate(
         cls, values: GenericCreateProblemError.Partial
     ) -> GenericCreateProblemError.Partial:
         for validator in GenericCreateProblemError.Validators._pre_validators:
@@ -211,7 +211,7 @@ class GenericCreateProblemError(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postgeneric_create_problem_error_validate(
+    def _post_generic_create_problem_error_validate(
         cls, values: GenericCreateProblemError.Partial
     ) -> GenericCreateProblemError.Partial:
         for validator in GenericCreateProblemError.Validators._post_validators:

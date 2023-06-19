@@ -119,7 +119,7 @@ class VoidFunctionSignature(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_void_function_signature_validate(
+    def _pre_v_2_v_3_void_function_signature_validate(
         cls, values: VoidFunctionSignature.Partial
     ) -> VoidFunctionSignature.Partial:
         for validator in VoidFunctionSignature.Validators._pre_validators:
@@ -127,7 +127,7 @@ class VoidFunctionSignature(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_void_function_signature_validate(
+    def _post_v_2_v_3_void_function_signature_validate(
         cls, values: VoidFunctionSignature.Partial
     ) -> VoidFunctionSignature.Partial:
         for validator in VoidFunctionSignature.Validators._post_validators:

@@ -117,13 +117,13 @@ class FinishedResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prefinished_response_validate(cls, values: FinishedResponse.Partial) -> FinishedResponse.Partial:
+    def _pre_finished_response_validate(cls, values: FinishedResponse.Partial) -> FinishedResponse.Partial:
         for validator in FinishedResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postfinished_response_validate(cls, values: FinishedResponse.Partial) -> FinishedResponse.Partial:
+    def _post_finished_response_validate(cls, values: FinishedResponse.Partial) -> FinishedResponse.Partial:
         for validator in FinishedResponse.Validators._post_validators:
             values = validator(values)
         return values

@@ -205,13 +205,13 @@ class WorkspaceRunDetails(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preworkspace_run_details_validate(cls, values: WorkspaceRunDetails.Partial) -> WorkspaceRunDetails.Partial:
+    def _pre_workspace_run_details_validate(cls, values: WorkspaceRunDetails.Partial) -> WorkspaceRunDetails.Partial:
         for validator in WorkspaceRunDetails.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postworkspace_run_details_validate(cls, values: WorkspaceRunDetails.Partial) -> WorkspaceRunDetails.Partial:
+    def _post_workspace_run_details_validate(cls, values: WorkspaceRunDetails.Partial) -> WorkspaceRunDetails.Partial:
         for validator in WorkspaceRunDetails.Validators._post_validators:
             values = validator(values)
         return values

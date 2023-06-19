@@ -246,13 +246,13 @@ class Movie(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _premovie_validate(cls, values: Movie.Partial) -> Movie.Partial:
+    def _pre_movie_validate(cls, values: Movie.Partial) -> Movie.Partial:
         for validator in Movie.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postmovie_validate(cls, values: Movie.Partial) -> Movie.Partial:
+    def _post_movie_validate(cls, values: Movie.Partial) -> Movie.Partial:
         for validator in Movie.Validators._post_validators:
             values = validator(values)
         return values

@@ -116,13 +116,13 @@ class DebugMapValue(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _predebug_map_value_validate(cls, values: DebugMapValue.Partial) -> DebugMapValue.Partial:
+    def _pre_debug_map_value_validate(cls, values: DebugMapValue.Partial) -> DebugMapValue.Partial:
         for validator in DebugMapValue.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postdebug_map_value_validate(cls, values: DebugMapValue.Partial) -> DebugMapValue.Partial:
+    def _post_debug_map_value_validate(cls, values: DebugMapValue.Partial) -> DebugMapValue.Partial:
         for validator in DebugMapValue.Validators._post_validators:
             values = validator(values)
         return values

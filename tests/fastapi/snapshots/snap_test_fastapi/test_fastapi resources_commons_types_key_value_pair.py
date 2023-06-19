@@ -138,13 +138,13 @@ class KeyValuePair(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prekey_value_pair_validate(cls, values: KeyValuePair.Partial) -> KeyValuePair.Partial:
+    def _pre_key_value_pair_validate(cls, values: KeyValuePair.Partial) -> KeyValuePair.Partial:
         for validator in KeyValuePair.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postkey_value_pair_validate(cls, values: KeyValuePair.Partial) -> KeyValuePair.Partial:
+    def _post_key_value_pair_validate(cls, values: KeyValuePair.Partial) -> KeyValuePair.Partial:
         for validator in KeyValuePair.Validators._post_validators:
             values = validator(values)
         return values

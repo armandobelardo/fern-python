@@ -408,7 +408,7 @@ class CreateProblemRequestV2(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_create_problem_request_v_2_validate(
+    def _pre_v_2_v_3_create_problem_request_v_2_validate(
         cls, values: CreateProblemRequestV2.Partial
     ) -> CreateProblemRequestV2.Partial:
         for validator in CreateProblemRequestV2.Validators._pre_validators:
@@ -416,7 +416,7 @@ class CreateProblemRequestV2(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_create_problem_request_v_2_validate(
+    def _post_v_2_v_3_create_problem_request_v_2_validate(
         cls, values: CreateProblemRequestV2.Partial
     ) -> CreateProblemRequestV2.Partial:
         for validator in CreateProblemRequestV2.Validators._post_validators:

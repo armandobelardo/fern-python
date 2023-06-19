@@ -125,7 +125,7 @@ class GetFunctionSignatureRequest(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_get_function_signature_request_validate(
+    def _pre_v_2_v_3_get_function_signature_request_validate(
         cls, values: GetFunctionSignatureRequest.Partial
     ) -> GetFunctionSignatureRequest.Partial:
         for validator in GetFunctionSignatureRequest.Validators._pre_validators:
@@ -133,7 +133,7 @@ class GetFunctionSignatureRequest(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_get_function_signature_request_validate(
+    def _post_v_2_v_3_get_function_signature_request_validate(
         cls, values: GetFunctionSignatureRequest.Partial
     ) -> GetFunctionSignatureRequest.Partial:
         for validator in GetFunctionSignatureRequest.Validators._post_validators:

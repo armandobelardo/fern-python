@@ -154,13 +154,13 @@ class StdoutResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prestdout_response_validate(cls, values: StdoutResponse.Partial) -> StdoutResponse.Partial:
+    def _pre_stdout_response_validate(cls, values: StdoutResponse.Partial) -> StdoutResponse.Partial:
         for validator in StdoutResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _poststdout_response_validate(cls, values: StdoutResponse.Partial) -> StdoutResponse.Partial:
+    def _post_stdout_response_validate(cls, values: StdoutResponse.Partial) -> StdoutResponse.Partial:
         for validator in StdoutResponse.Validators._post_validators:
             values = validator(values)
         return values

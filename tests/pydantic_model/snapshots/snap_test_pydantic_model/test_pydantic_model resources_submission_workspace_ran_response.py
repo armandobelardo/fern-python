@@ -166,13 +166,15 @@ class WorkspaceRanResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preworkspace_ran_response_validate(cls, values: WorkspaceRanResponse.Partial) -> WorkspaceRanResponse.Partial:
+    def _pre_workspace_ran_response_validate(cls, values: WorkspaceRanResponse.Partial) -> WorkspaceRanResponse.Partial:
         for validator in WorkspaceRanResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postworkspace_ran_response_validate(cls, values: WorkspaceRanResponse.Partial) -> WorkspaceRanResponse.Partial:
+    def _post_workspace_ran_response_validate(
+        cls, values: WorkspaceRanResponse.Partial
+    ) -> WorkspaceRanResponse.Partial:
         for validator in WorkspaceRanResponse.Validators._post_validators:
             values = validator(values)
         return values

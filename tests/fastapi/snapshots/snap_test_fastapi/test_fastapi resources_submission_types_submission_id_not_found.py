@@ -121,13 +121,15 @@ class SubmissionIdNotFound(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _presubmission_id_not_found_validate(cls, values: SubmissionIdNotFound.Partial) -> SubmissionIdNotFound.Partial:
+    def _pre_submission_id_not_found_validate(
+        cls, values: SubmissionIdNotFound.Partial
+    ) -> SubmissionIdNotFound.Partial:
         for validator in SubmissionIdNotFound.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postsubmission_id_not_found_validate(
+    def _post_submission_id_not_found_validate(
         cls, values: SubmissionIdNotFound.Partial
     ) -> SubmissionIdNotFound.Partial:
         for validator in SubmissionIdNotFound.Validators._post_validators:

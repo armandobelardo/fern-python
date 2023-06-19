@@ -265,7 +265,7 @@ class GetSubmissionStateResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _preget_submission_state_response_validate(
+    def _pre_get_submission_state_response_validate(
         cls, values: GetSubmissionStateResponse.Partial
     ) -> GetSubmissionStateResponse.Partial:
         for validator in GetSubmissionStateResponse.Validators._pre_validators:
@@ -273,7 +273,7 @@ class GetSubmissionStateResponse(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postget_submission_state_response_validate(
+    def _post_get_submission_state_response_validate(
         cls, values: GetSubmissionStateResponse.Partial
     ) -> GetSubmissionStateResponse.Partial:
         for validator in GetSubmissionStateResponse.Validators._post_validators:

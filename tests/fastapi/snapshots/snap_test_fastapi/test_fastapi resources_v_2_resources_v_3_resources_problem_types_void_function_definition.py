@@ -162,7 +162,7 @@ class VoidFunctionDefinition(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _prev_2_v_3_void_function_definition_validate(
+    def _pre_v_2_v_3_void_function_definition_validate(
         cls, values: VoidFunctionDefinition.Partial
     ) -> VoidFunctionDefinition.Partial:
         for validator in VoidFunctionDefinition.Validators._pre_validators:
@@ -170,7 +170,7 @@ class VoidFunctionDefinition(pydantic.BaseModel):
         return values
 
     @pydantic.root_validator(pre=False)
-    def _postv_2_v_3_void_function_definition_validate(
+    def _post_v_2_v_3_void_function_definition_validate(
         cls, values: VoidFunctionDefinition.Partial
     ) -> VoidFunctionDefinition.Partial:
         for validator in VoidFunctionDefinition.Validators._post_validators:
