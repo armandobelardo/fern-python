@@ -1,9 +1,10 @@
+from typing import List, Tuple
+
 from fern_python.codegen import AST
 from fern_python.codegen.ast.nodes.code_writer.code_writer import CodeWriterFunction
 from fern_python.pydantic_codegen import PydanticModel
 
 from .validator_generator import ValidatorGenerator
-from typing import List, Tuple
 
 
 class RootValidatorGenerator(ValidatorGenerator):
@@ -13,7 +14,9 @@ class RootValidatorGenerator(ValidatorGenerator):
     _CALLABLE_PARAMETER_PREFIX = "__"
     _VALIDATOR_PARAMETER_NAME = "validator"
 
-    def __init__(self, model: PydanticModel, reference_to_validators_class: Tuple[str, ...], unique_model_name: List[str]):
+    def __init__(
+        self, model: PydanticModel, reference_to_validators_class: Tuple[str, ...], unique_model_name: List[str]
+    ):
         super().__init__(model, reference_to_validators_class)
         self._unique_model_name = unique_model_name
 

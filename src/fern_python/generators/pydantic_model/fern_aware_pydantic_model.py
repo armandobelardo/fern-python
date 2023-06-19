@@ -216,7 +216,7 @@ class FernAwarePydanticModel:
             return PydanticValidatorsGenerator(
                 model=self._pydantic_model,
                 extended_pydantic_fields=self._get_extended_pydantic_fields(self._extends or []),
-                unique_name=unique_name
+                unique_name=unique_name,
             )
 
     def _get_extended_pydantic_fields(self, extends: Sequence[ir_types.DeclaredTypeName]) -> List[PydanticField]:
