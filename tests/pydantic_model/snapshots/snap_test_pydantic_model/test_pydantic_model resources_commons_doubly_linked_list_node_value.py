@@ -241,13 +241,17 @@ class DoublyLinkedListNodeValue(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: DoublyLinkedListNodeValue.Partial) -> DoublyLinkedListNodeValue.Partial:
+    def _predoubly_linked_list_node_value_validate(
+        cls, values: DoublyLinkedListNodeValue.Partial
+    ) -> DoublyLinkedListNodeValue.Partial:
         for validator in DoublyLinkedListNodeValue.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: DoublyLinkedListNodeValue.Partial) -> DoublyLinkedListNodeValue.Partial:
+    def _postdoubly_linked_list_node_value_validate(
+        cls, values: DoublyLinkedListNodeValue.Partial
+    ) -> DoublyLinkedListNodeValue.Partial:
         for validator in DoublyLinkedListNodeValue.Validators._post_validators:
             values = validator(values)
         return values

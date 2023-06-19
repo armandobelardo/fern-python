@@ -126,13 +126,17 @@ class DeepEqualityCorrectnessCheck(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: DeepEqualityCorrectnessCheck.Partial) -> DeepEqualityCorrectnessCheck.Partial:
+    def _prev_2_deep_equality_correctness_check_validate(
+        cls, values: DeepEqualityCorrectnessCheck.Partial
+    ) -> DeepEqualityCorrectnessCheck.Partial:
         for validator in DeepEqualityCorrectnessCheck.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: DeepEqualityCorrectnessCheck.Partial) -> DeepEqualityCorrectnessCheck.Partial:
+    def _postv_2_deep_equality_correctness_check_validate(
+        cls, values: DeepEqualityCorrectnessCheck.Partial
+    ) -> DeepEqualityCorrectnessCheck.Partial:
         for validator in DeepEqualityCorrectnessCheck.Validators._post_validators:
             values = validator(values)
         return values

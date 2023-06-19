@@ -159,13 +159,13 @@ class VariableTypeAndName(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: VariableTypeAndName.Partial) -> VariableTypeAndName.Partial:
+    def _prevariable_type_and_name_validate(cls, values: VariableTypeAndName.Partial) -> VariableTypeAndName.Partial:
         for validator in VariableTypeAndName.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: VariableTypeAndName.Partial) -> VariableTypeAndName.Partial:
+    def _postvariable_type_and_name_validate(cls, values: VariableTypeAndName.Partial) -> VariableTypeAndName.Partial:
         for validator in VariableTypeAndName.Validators._post_validators:
             values = validator(values)
         return values

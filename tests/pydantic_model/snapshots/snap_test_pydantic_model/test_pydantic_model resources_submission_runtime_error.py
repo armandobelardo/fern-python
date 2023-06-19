@@ -105,13 +105,13 @@ class RuntimeError(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: RuntimeError.Partial) -> RuntimeError.Partial:
+    def _preruntime_error_validate(cls, values: RuntimeError.Partial) -> RuntimeError.Partial:
         for validator in RuntimeError.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: RuntimeError.Partial) -> RuntimeError.Partial:
+    def _postruntime_error_validate(cls, values: RuntimeError.Partial) -> RuntimeError.Partial:
         for validator in RuntimeError.Validators._post_validators:
             values = validator(values)
         return values

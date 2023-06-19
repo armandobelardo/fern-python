@@ -150,13 +150,13 @@ class ListType(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: ListType.Partial) -> ListType.Partial:
+    def _prelist_type_validate(cls, values: ListType.Partial) -> ListType.Partial:
         for validator in ListType.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: ListType.Partial) -> ListType.Partial:
+    def _postlist_type_validate(cls, values: ListType.Partial) -> ListType.Partial:
         for validator in ListType.Validators._post_validators:
             values = validator(values)
         return values

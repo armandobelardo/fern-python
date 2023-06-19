@@ -140,13 +140,13 @@ class TracedFile(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: TracedFile.Partial) -> TracedFile.Partial:
+    def _pretraced_file_validate(cls, values: TracedFile.Partial) -> TracedFile.Partial:
         for validator in TracedFile.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: TracedFile.Partial) -> TracedFile.Partial:
+    def _posttraced_file_validate(cls, values: TracedFile.Partial) -> TracedFile.Partial:
         for validator in TracedFile.Validators._post_validators:
             values = validator(values)
         return values

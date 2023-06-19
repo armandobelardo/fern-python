@@ -115,13 +115,13 @@ class InternalError(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: InternalError.Partial) -> InternalError.Partial:
+    def _preinternal_error_validate(cls, values: InternalError.Partial) -> InternalError.Partial:
         for validator in InternalError.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: InternalError.Partial) -> InternalError.Partial:
+    def _postinternal_error_validate(cls, values: InternalError.Partial) -> InternalError.Partial:
         for validator in InternalError.Validators._post_validators:
             values = validator(values)
         return values

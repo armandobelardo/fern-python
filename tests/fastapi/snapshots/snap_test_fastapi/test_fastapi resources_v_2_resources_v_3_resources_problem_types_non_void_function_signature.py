@@ -167,13 +167,17 @@ class NonVoidFunctionSignature(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: NonVoidFunctionSignature.Partial) -> NonVoidFunctionSignature.Partial:
+    def _prev_2_v_3_non_void_function_signature_validate(
+        cls, values: NonVoidFunctionSignature.Partial
+    ) -> NonVoidFunctionSignature.Partial:
         for validator in NonVoidFunctionSignature.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: NonVoidFunctionSignature.Partial) -> NonVoidFunctionSignature.Partial:
+    def _postv_2_v_3_non_void_function_signature_validate(
+        cls, values: NonVoidFunctionSignature.Partial
+    ) -> NonVoidFunctionSignature.Partial:
         for validator in NonVoidFunctionSignature.Validators._post_validators:
             values = validator(values)
         return values

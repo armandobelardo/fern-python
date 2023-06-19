@@ -233,13 +233,13 @@ class BinaryTreeNodeValue(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: BinaryTreeNodeValue.Partial) -> BinaryTreeNodeValue.Partial:
+    def _prebinary_tree_node_value_validate(cls, values: BinaryTreeNodeValue.Partial) -> BinaryTreeNodeValue.Partial:
         for validator in BinaryTreeNodeValue.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: BinaryTreeNodeValue.Partial) -> BinaryTreeNodeValue.Partial:
+    def _postbinary_tree_node_value_validate(cls, values: BinaryTreeNodeValue.Partial) -> BinaryTreeNodeValue.Partial:
         for validator in BinaryTreeNodeValue.Validators._post_validators:
             values = validator(values)
         return values

@@ -164,13 +164,17 @@ class NonVoidFunctionDefinition(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: NonVoidFunctionDefinition.Partial) -> NonVoidFunctionDefinition.Partial:
+    def _prev_2_non_void_function_definition_validate(
+        cls, values: NonVoidFunctionDefinition.Partial
+    ) -> NonVoidFunctionDefinition.Partial:
         for validator in NonVoidFunctionDefinition.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: NonVoidFunctionDefinition.Partial) -> NonVoidFunctionDefinition.Partial:
+    def _postv_2_non_void_function_definition_validate(
+        cls, values: NonVoidFunctionDefinition.Partial
+    ) -> NonVoidFunctionDefinition.Partial:
         for validator in NonVoidFunctionDefinition.Validators._post_validators:
             values = validator(values)
         return values

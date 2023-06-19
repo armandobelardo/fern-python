@@ -120,13 +120,17 @@ class UpdateProblemResponse(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: UpdateProblemResponse.Partial) -> UpdateProblemResponse.Partial:
+    def _preupdate_problem_response_validate(
+        cls, values: UpdateProblemResponse.Partial
+    ) -> UpdateProblemResponse.Partial:
         for validator in UpdateProblemResponse.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: UpdateProblemResponse.Partial) -> UpdateProblemResponse.Partial:
+    def _postupdate_problem_response_validate(
+        cls, values: UpdateProblemResponse.Partial
+    ) -> UpdateProblemResponse.Partial:
         for validator in UpdateProblemResponse.Validators._post_validators:
             values = validator(values)
         return values

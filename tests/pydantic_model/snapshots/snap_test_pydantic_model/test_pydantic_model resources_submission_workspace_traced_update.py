@@ -120,13 +120,17 @@ class WorkspaceTracedUpdate(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: WorkspaceTracedUpdate.Partial) -> WorkspaceTracedUpdate.Partial:
+    def _preworkspace_traced_update_validate(
+        cls, values: WorkspaceTracedUpdate.Partial
+    ) -> WorkspaceTracedUpdate.Partial:
         for validator in WorkspaceTracedUpdate.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: WorkspaceTracedUpdate.Partial) -> WorkspaceTracedUpdate.Partial:
+    def _postworkspace_traced_update_validate(
+        cls, values: WorkspaceTracedUpdate.Partial
+    ) -> WorkspaceTracedUpdate.Partial:
         for validator in WorkspaceTracedUpdate.Validators._post_validators:
             values = validator(values)
         return values

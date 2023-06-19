@@ -3,6 +3,7 @@ from fern_python.codegen.ast.nodes.code_writer.code_writer import CodeWriterFunc
 from fern_python.pydantic_codegen import PydanticModel
 
 from .validator_generator import ValidatorGenerator
+from typing import List, Tuple
 
 
 class RootValidatorGenerator(ValidatorGenerator):
@@ -12,9 +13,14 @@ class RootValidatorGenerator(ValidatorGenerator):
     _CALLABLE_PARAMETER_PREFIX = "__"
     _VALIDATOR_PARAMETER_NAME = "validator"
 
+    def __init__(self, model: PydanticModel, reference_to_validators_class: Tuple[str, ...], unique_model_name: List[str]):
+        super().__init__(model, reference_to_validators_class)
+        self._unique_model_name = unique_model_name
+
     def add_validator_to_model(self) -> None:
         for pre in [True, False]:
             prefix = "pre" if pre else "post"
+            prefix += "_".join(self._unique_model_name)
             self._model.add_root_validator(
                 validator_name=f"_{prefix}_validate",
                 body=AST.CodeWriter(self._get_write_validator_body(pre)),

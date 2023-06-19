@@ -148,13 +148,13 @@ class DebugKeyValuePairs(pydantic.BaseModel):
                 ...
 
     @pydantic.root_validator(pre=True)
-    def _pre_validate(cls, values: DebugKeyValuePairs.Partial) -> DebugKeyValuePairs.Partial:
+    def _predebug_key_value_pairs_validate(cls, values: DebugKeyValuePairs.Partial) -> DebugKeyValuePairs.Partial:
         for validator in DebugKeyValuePairs.Validators._pre_validators:
             values = validator(values)
         return values
 
     @pydantic.root_validator(pre=False)
-    def _post_validate(cls, values: DebugKeyValuePairs.Partial) -> DebugKeyValuePairs.Partial:
+    def _postdebug_key_value_pairs_validate(cls, values: DebugKeyValuePairs.Partial) -> DebugKeyValuePairs.Partial:
         for validator in DebugKeyValuePairs.Validators._post_validators:
             values = validator(values)
         return values
