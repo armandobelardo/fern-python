@@ -25,7 +25,9 @@ class RootValidatorGenerator(ValidatorGenerator):
             prefix = "pre" if pre else "post"
             joined_model_name = "_".join(self._unique_model_name)
             self._model.add_root_validator(
-                validator_name=f"_{prefix}_validate_{joined_model_name}" if len(joined_model_name) > 0 else f"_{prefix}_validate",
+                validator_name=f"_{prefix}_validate_{joined_model_name}"
+                if len(joined_model_name) > 0
+                else f"_{prefix}_validate",
                 body=AST.CodeWriter(self._get_write_validator_body(pre)),
                 should_use_partial_type=True,
                 pre=pre,
