@@ -250,7 +250,7 @@ class DiscriminatedUnionWithUtilsGenerator(AbstractTypeGenerator):
                 args=single_union_type.shape.visit(
                     same_properties_as_object=lambda type_name: [
                         AST.Expression(
-                            f'{BUILDER_ARGUMENT_NAME}.dict(exclude_unset=True)',
+                            f"{BUILDER_ARGUMENT_NAME}.dict(exclude_unset=True)",
                             spread=AST.ExpressionSpread.TWO_ASTERISKS,
                         )
                     ],
