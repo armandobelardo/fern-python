@@ -26,7 +26,7 @@ class _Factory:
     ) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.SubmissionIdNotFound(
-                **value.dict(exclude_unset=True), type="submissionIdNotFound"
+                **value.dict(exclude_unset=True, exclude="type"), type="submissionIdNotFound"
             )
         )
 
@@ -35,14 +35,14 @@ class _Factory:
     ) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.CustomTestCasesUnsupported(
-                **value.dict(exclude_unset=True), type="customTestCasesUnsupported"
+                **value.dict(exclude_unset=True, exclude="type"), type="customTestCasesUnsupported"
             )
         )
 
     def unexpected_language(self, value: UnexpectedLanguageError) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.UnexpectedLanguage(
-                **value.dict(exclude_unset=True), type="unexpectedLanguage"
+                **value.dict(exclude_unset=True, exclude="type"), type="unexpectedLanguage"
             )
         )
 

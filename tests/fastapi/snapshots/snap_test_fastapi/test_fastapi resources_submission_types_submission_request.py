@@ -25,7 +25,7 @@ class _Factory:
     ) -> SubmissionRequest:
         return SubmissionRequest(
             __root__=_SubmissionRequest.InitializeProblemRequest(
-                **value.dict(exclude_unset=True), type="initializeProblemRequest"
+                **value.dict(exclude_unset=True, exclude="type"), type="initializeProblemRequest"
             )
         )
 
@@ -36,16 +36,20 @@ class _Factory:
 
     def submit_v_2(self, value: SubmitRequestV2) -> SubmissionRequest:
         return SubmissionRequest(
-            __root__=_SubmissionRequest.SubmitV2(**value.dict(exclude_unset=True), type="submitV2")
+            __root__=_SubmissionRequest.SubmitV2(**value.dict(exclude_unset=True, exclude="type"), type="submitV2")
         )
 
     def workspace_submit(self, value: WorkspaceSubmitRequest) -> SubmissionRequest:
         return SubmissionRequest(
-            __root__=_SubmissionRequest.WorkspaceSubmit(**value.dict(exclude_unset=True), type="workspaceSubmit")
+            __root__=_SubmissionRequest.WorkspaceSubmit(
+                **value.dict(exclude_unset=True, exclude="type"), type="workspaceSubmit"
+            )
         )
 
     def stop(self, value: StopRequest) -> SubmissionRequest:
-        return SubmissionRequest(__root__=_SubmissionRequest.Stop(**value.dict(exclude_unset=True), type="stop"))
+        return SubmissionRequest(
+            __root__=_SubmissionRequest.Stop(**value.dict(exclude_unset=True, exclude="type"), type="stop")
+        )
 
 
 class SubmissionRequest(pydantic.BaseModel):

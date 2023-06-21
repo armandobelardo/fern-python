@@ -30,10 +30,14 @@ class _Factory:
         return VariableType(__root__=_VariableType.CharType(type="charType"))
 
     def list_type(self, value: resources_commons_types_list_type_ListType) -> VariableType:
-        return VariableType(__root__=_VariableType.ListType(**value.dict(exclude_unset=True), type="listType"))
+        return VariableType(
+            __root__=_VariableType.ListType(**value.dict(exclude_unset=True, exclude="type"), type="listType")
+        )
 
     def map_type(self, value: resources_commons_types_map_type_MapType) -> VariableType:
-        return VariableType(__root__=_VariableType.MapType(**value.dict(exclude_unset=True), type="mapType"))
+        return VariableType(
+            __root__=_VariableType.MapType(**value.dict(exclude_unset=True, exclude="type"), type="mapType")
+        )
 
     def binary_tree_type(self) -> VariableType:
         return VariableType(__root__=_VariableType.BinaryTreeType(type="binaryTreeType"))

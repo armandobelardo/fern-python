@@ -28,12 +28,12 @@ class _Factory:
 
     def ran(self, value: WorkspaceRunDetails) -> WorkspaceSubmissionStatus:
         return WorkspaceSubmissionStatus(
-            __root__=_WorkspaceSubmissionStatus.Ran(**value.dict(exclude_unset=True), type="ran")
+            __root__=_WorkspaceSubmissionStatus.Ran(**value.dict(exclude_unset=True, exclude="type"), type="ran")
         )
 
     def traced(self, value: WorkspaceRunDetails) -> WorkspaceSubmissionStatus:
         return WorkspaceSubmissionStatus(
-            __root__=_WorkspaceSubmissionStatus.Traced(**value.dict(exclude_unset=True), type="traced")
+            __root__=_WorkspaceSubmissionStatus.Traced(**value.dict(exclude_unset=True, exclude="type"), type="traced")
         )
 
 

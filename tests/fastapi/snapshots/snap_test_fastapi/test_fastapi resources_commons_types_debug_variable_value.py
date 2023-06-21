@@ -35,7 +35,7 @@ class _Factory:
 
     def map_value(self, value: DebugMapValue) -> DebugVariableValue:
         return DebugVariableValue(
-            __root__=_DebugVariableValue.MapValue(**value.dict(exclude_unset=True), type="mapValue")
+            __root__=_DebugVariableValue.MapValue(**value.dict(exclude_unset=True, exclude="type"), type="mapValue")
         )
 
     def list_value(self, value: typing.List[DebugVariableValue]) -> DebugVariableValue:
@@ -44,21 +44,21 @@ class _Factory:
     def binary_tree_node_value(self, value: BinaryTreeNodeAndTreeValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.BinaryTreeNodeValue(
-                **value.dict(exclude_unset=True), type="binaryTreeNodeValue"
+                **value.dict(exclude_unset=True, exclude="type"), type="binaryTreeNodeValue"
             )
         )
 
     def singly_linked_list_node_value(self, value: SinglyLinkedListNodeAndListValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.SinglyLinkedListNodeValue(
-                **value.dict(exclude_unset=True), type="singlyLinkedListNodeValue"
+                **value.dict(exclude_unset=True, exclude="type"), type="singlyLinkedListNodeValue"
             )
         )
 
     def doubly_linked_list_node_value(self, value: DoublyLinkedListNodeAndListValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.DoublyLinkedListNodeValue(
-                **value.dict(exclude_unset=True), type="doublyLinkedListNodeValue"
+                **value.dict(exclude_unset=True, exclude="type"), type="doublyLinkedListNodeValue"
             )
         )
 
@@ -70,7 +70,9 @@ class _Factory:
 
     def generic_value(self, value: resources_commons_types_generic_value_GenericValue) -> DebugVariableValue:
         return DebugVariableValue(
-            __root__=_DebugVariableValue.GenericValue(**value.dict(exclude_unset=True), type="genericValue")
+            __root__=_DebugVariableValue.GenericValue(
+                **value.dict(exclude_unset=True, exclude="type"), type="genericValue"
+            )
         )
 
 

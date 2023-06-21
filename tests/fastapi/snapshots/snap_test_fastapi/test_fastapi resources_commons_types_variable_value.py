@@ -37,14 +37,18 @@ class _Factory:
         return VariableValue(__root__=_VariableValue.CharValue(type="charValue", value=value))
 
     def map_value(self, value: resources_commons_types_map_value_MapValue) -> VariableValue:
-        return VariableValue(__root__=_VariableValue.MapValue(**value.dict(exclude_unset=True), type="mapValue"))
+        return VariableValue(
+            __root__=_VariableValue.MapValue(**value.dict(exclude_unset=True, exclude="type"), type="mapValue")
+        )
 
     def list_value(self, value: typing.List[VariableValue]) -> VariableValue:
         return VariableValue(__root__=_VariableValue.ListValue(type="listValue", value=value))
 
     def binary_tree_value(self, value: resources_commons_types_binary_tree_value_BinaryTreeValue) -> VariableValue:
         return VariableValue(
-            __root__=_VariableValue.BinaryTreeValue(**value.dict(exclude_unset=True), type="binaryTreeValue")
+            __root__=_VariableValue.BinaryTreeValue(
+                **value.dict(exclude_unset=True, exclude="type"), type="binaryTreeValue"
+            )
         )
 
     def singly_linked_list_value(
@@ -52,7 +56,7 @@ class _Factory:
     ) -> VariableValue:
         return VariableValue(
             __root__=_VariableValue.SinglyLinkedListValue(
-                **value.dict(exclude_unset=True), type="singlyLinkedListValue"
+                **value.dict(exclude_unset=True, exclude="type"), type="singlyLinkedListValue"
             )
         )
 
@@ -61,7 +65,7 @@ class _Factory:
     ) -> VariableValue:
         return VariableValue(
             __root__=_VariableValue.DoublyLinkedListValue(
-                **value.dict(exclude_unset=True), type="doublyLinkedListValue"
+                **value.dict(exclude_unset=True, exclude="type"), type="doublyLinkedListValue"
             )
         )
 

@@ -33,7 +33,9 @@ class _Factory:
 
     def server_errored(self, value: ExceptionInfo) -> SubmissionResponse:
         return SubmissionResponse(
-            __root__=_SubmissionResponse.ServerErrored(**value.dict(exclude_unset=True), type="serverErrored")
+            __root__=_SubmissionResponse.ServerErrored(
+                **value.dict(exclude_unset=True, exclude="type"), type="serverErrored"
+            )
         )
 
     def code_execution_update(
@@ -45,7 +47,7 @@ class _Factory:
 
     def terminated(self, value: TerminatedResponse) -> SubmissionResponse:
         return SubmissionResponse(
-            __root__=_SubmissionResponse.Terminated(**value.dict(exclude_unset=True), type="terminated")
+            __root__=_SubmissionResponse.Terminated(**value.dict(exclude_unset=True, exclude="type"), type="terminated")
         )
 
 

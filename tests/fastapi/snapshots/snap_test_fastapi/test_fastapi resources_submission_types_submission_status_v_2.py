@@ -23,11 +23,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def test(self, value: TestSubmissionStatusV2) -> SubmissionStatusV2:
-        return SubmissionStatusV2(__root__=_SubmissionStatusV2.Test(**value.dict(exclude_unset=True), type="test"))
+        return SubmissionStatusV2(
+            __root__=_SubmissionStatusV2.Test(**value.dict(exclude_unset=True, exclude="type"), type="test")
+        )
 
     def workspace(self, value: WorkspaceSubmissionStatusV2) -> SubmissionStatusV2:
         return SubmissionStatusV2(
-            __root__=_SubmissionStatusV2.Workspace(**value.dict(exclude_unset=True), type="workspace")
+            __root__=_SubmissionStatusV2.Workspace(**value.dict(exclude_unset=True, exclude="type"), type="workspace")
         )
 
 

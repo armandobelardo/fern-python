@@ -32,13 +32,15 @@ class _Factory:
 
     def graded_test_case(self, value: GradedTestCaseUpdate) -> TestSubmissionUpdateInfo:
         return TestSubmissionUpdateInfo(
-            __root__=_TestSubmissionUpdateInfo.GradedTestCase(**value.dict(exclude_unset=True), type="gradedTestCase")
+            __root__=_TestSubmissionUpdateInfo.GradedTestCase(
+                **value.dict(exclude_unset=True, exclude="type"), type="gradedTestCase"
+            )
         )
 
     def recorded_test_case(self, value: RecordedTestCaseUpdate) -> TestSubmissionUpdateInfo:
         return TestSubmissionUpdateInfo(
             __root__=_TestSubmissionUpdateInfo.RecordedTestCase(
-                **value.dict(exclude_unset=True), type="recordedTestCase"
+                **value.dict(exclude_unset=True, exclude="type"), type="recordedTestCase"
             )
         )
 

@@ -27,7 +27,7 @@ class _Factory:
     def implementation(self, value: TestCaseImplementation) -> TestCaseImplementationReference:
         return TestCaseImplementationReference(
             __root__=_TestCaseImplementationReference.Implementation(
-                **value.dict(exclude_unset=True), type="implementation"
+                **value.dict(exclude_unset=True, exclude="type"), type="implementation"
             )
         )
 

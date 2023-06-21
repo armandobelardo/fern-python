@@ -21,12 +21,14 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def deep_equality(self, value: DeepEqualityCorrectnessCheck) -> AssertCorrectnessCheck:
         return AssertCorrectnessCheck(
-            __root__=_AssertCorrectnessCheck.DeepEquality(**value.dict(exclude_unset=True), type="deepEquality")
+            __root__=_AssertCorrectnessCheck.DeepEquality(
+                **value.dict(exclude_unset=True, exclude="type"), type="deepEquality"
+            )
         )
 
     def custom(self, value: VoidFunctionDefinitionThatTakesActualResult) -> AssertCorrectnessCheck:
         return AssertCorrectnessCheck(
-            __root__=_AssertCorrectnessCheck.Custom(**value.dict(exclude_unset=True), type="custom")
+            __root__=_AssertCorrectnessCheck.Custom(**value.dict(exclude_unset=True, exclude="type"), type="custom")
         )
 
 

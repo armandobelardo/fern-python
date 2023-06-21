@@ -22,7 +22,9 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def graded(self, value: TestCaseResultWithStdout) -> SubmissionStatusForTestCase:
         return SubmissionStatusForTestCase(
-            __root__=_SubmissionStatusForTestCase.Graded(**value.dict(exclude_unset=True), type="graded")
+            __root__=_SubmissionStatusForTestCase.Graded(
+                **value.dict(exclude_unset=True, exclude="type"), type="graded"
+            )
         )
 
     def graded_v_2(self, value: TestCaseGrade) -> SubmissionStatusForTestCase:
@@ -30,7 +32,9 @@ class _Factory:
 
     def traced(self, value: TracedTestCase) -> SubmissionStatusForTestCase:
         return SubmissionStatusForTestCase(
-            __root__=_SubmissionStatusForTestCase.Traced(**value.dict(exclude_unset=True), type="traced")
+            __root__=_SubmissionStatusForTestCase.Traced(
+                **value.dict(exclude_unset=True, exclude="type"), type="traced"
+            )
         )
 
 
