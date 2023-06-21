@@ -21,7 +21,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def basic(self, value: BasicCustomFiles) -> CustomFiles:
-        return CustomFiles(__root__=_CustomFiles.Basic(**value.dict(exclude_unset=True, exclude="type"), type="basic"))
+        return CustomFiles(__root__=_CustomFiles.Basic(**value.dict(exclude_unset=True), type="basic"))
 
     def custom(self, value: typing.Dict[Language, Files]) -> CustomFiles:
         return CustomFiles(__root__=_CustomFiles.Custom(type="custom", value=value))
@@ -39,7 +39,7 @@ class CustomFiles(pydantic.BaseModel):
         custom: typing.Callable[[typing.Dict[Language, Files]], T_Result],
     ) -> T_Result:
         if self.__root__.type == "basic":
-            return basic(BasicCustomFiles(**self.__root__.dict(exclude_unset=True)))
+            return basic(BasicCustomFiles(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "custom":
             return custom(self.__root__.value)
 

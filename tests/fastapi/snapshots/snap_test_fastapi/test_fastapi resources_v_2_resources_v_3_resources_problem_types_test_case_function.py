@@ -21,15 +21,11 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def with_actual_result(self, value: TestCaseWithActualResultImplementation) -> TestCaseFunction:
         return TestCaseFunction(
-            __root__=_TestCaseFunction.WithActualResult(
-                **value.dict(exclude_unset=True, exclude="type"), type="withActualResult"
-            )
+            __root__=_TestCaseFunction.WithActualResult(**value.dict(exclude_unset=True), type="withActualResult")
         )
 
     def custom(self, value: VoidFunctionDefinition) -> TestCaseFunction:
-        return TestCaseFunction(
-            __root__=_TestCaseFunction.Custom(**value.dict(exclude_unset=True, exclude="type"), type="custom")
-        )
+        return TestCaseFunction(__root__=_TestCaseFunction.Custom(**value.dict(exclude_unset=True), type="custom"))
 
 
 class TestCaseFunction(pydantic.BaseModel):
@@ -44,9 +40,11 @@ class TestCaseFunction(pydantic.BaseModel):
         custom: typing.Callable[[VoidFunctionDefinition], T_Result],
     ) -> T_Result:
         if self.__root__.type == "withActualResult":
-            return with_actual_result(TestCaseWithActualResultImplementation(**self.__root__.dict(exclude_unset=True)))
+            return with_actual_result(
+                TestCaseWithActualResultImplementation(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
         if self.__root__.type == "custom":
-            return custom(VoidFunctionDefinition(**self.__root__.dict(exclude_unset=True)))
+            return custom(VoidFunctionDefinition(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[_TestCaseFunction.WithActualResult, _TestCaseFunction.Custom], pydantic.Field(discriminator="type")

@@ -21,19 +21,15 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def void(self, value: VoidFunctionSignature) -> FunctionSignature:
-        return FunctionSignature(
-            __root__=_FunctionSignature.Void(**value.dict(exclude_unset=True, exclude="type"), type="void")
-        )
+        return FunctionSignature(__root__=_FunctionSignature.Void(**value.dict(exclude_unset=True), type="void"))
 
     def non_void(self, value: NonVoidFunctionSignature) -> FunctionSignature:
-        return FunctionSignature(
-            __root__=_FunctionSignature.NonVoid(**value.dict(exclude_unset=True, exclude="type"), type="nonVoid")
-        )
+        return FunctionSignature(__root__=_FunctionSignature.NonVoid(**value.dict(exclude_unset=True), type="nonVoid"))
 
     def void_that_takes_actual_result(self, value: VoidFunctionSignatureThatTakesActualResult) -> FunctionSignature:
         return FunctionSignature(
             __root__=_FunctionSignature.VoidThatTakesActualResult(
-                **value.dict(exclude_unset=True, exclude="type"), type="voidThatTakesActualResult"
+                **value.dict(exclude_unset=True), type="voidThatTakesActualResult"
             )
         )
 
@@ -55,12 +51,12 @@ class FunctionSignature(pydantic.BaseModel):
         void_that_takes_actual_result: typing.Callable[[VoidFunctionSignatureThatTakesActualResult], T_Result],
     ) -> T_Result:
         if self.__root__.type == "void":
-            return void(VoidFunctionSignature(**self.__root__.dict(exclude_unset=True)))
+            return void(VoidFunctionSignature(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "nonVoid":
-            return non_void(NonVoidFunctionSignature(**self.__root__.dict(exclude_unset=True)))
+            return non_void(NonVoidFunctionSignature(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "voidThatTakesActualResult":
             return void_that_takes_actual_result(
-                VoidFunctionSignatureThatTakesActualResult(**self.__root__.dict(exclude_unset=True))
+                VoidFunctionSignatureThatTakesActualResult(**self.__root__.dict(exclude_unset=True, exclude="type"))
             )
 
     __root__: typing_extensions.Annotated[

@@ -16,9 +16,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def generic(self, value: ExceptionInfo) -> ExceptionV2:
-        return ExceptionV2(
-            __root__=_ExceptionV2.Generic(**value.dict(exclude_unset=True, exclude="type"), type="generic")
-        )
+        return ExceptionV2(__root__=_ExceptionV2.Generic(**value.dict(exclude_unset=True), type="generic"))
 
     def timeout(self) -> ExceptionV2:
         return ExceptionV2(__root__=_ExceptionV2.Timeout(type="timeout"))
@@ -34,7 +32,7 @@ class ExceptionV2(pydantic.BaseModel):
         self, generic: typing.Callable[[ExceptionInfo], T_Result], timeout: typing.Callable[[], T_Result]
     ) -> T_Result:
         if self.__root__.type == "generic":
-            return generic(ExceptionInfo(**self.__root__.dict(exclude_unset=True)))
+            return generic(ExceptionInfo(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "timeout":
             return timeout()
 

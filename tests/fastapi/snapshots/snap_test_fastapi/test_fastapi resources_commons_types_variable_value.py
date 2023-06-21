@@ -37,18 +37,14 @@ class _Factory:
         return VariableValue(__root__=_VariableValue.CharValue(type="charValue", value=value))
 
     def map_value(self, value: resources_commons_types_map_value_MapValue) -> VariableValue:
-        return VariableValue(
-            __root__=_VariableValue.MapValue(**value.dict(exclude_unset=True, exclude="type"), type="mapValue")
-        )
+        return VariableValue(__root__=_VariableValue.MapValue(**value.dict(exclude_unset=True), type="mapValue"))
 
     def list_value(self, value: typing.List[VariableValue]) -> VariableValue:
         return VariableValue(__root__=_VariableValue.ListValue(type="listValue", value=value))
 
     def binary_tree_value(self, value: resources_commons_types_binary_tree_value_BinaryTreeValue) -> VariableValue:
         return VariableValue(
-            __root__=_VariableValue.BinaryTreeValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="binaryTreeValue"
-            )
+            __root__=_VariableValue.BinaryTreeValue(**value.dict(exclude_unset=True), type="binaryTreeValue")
         )
 
     def singly_linked_list_value(
@@ -56,7 +52,7 @@ class _Factory:
     ) -> VariableValue:
         return VariableValue(
             __root__=_VariableValue.SinglyLinkedListValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="singlyLinkedListValue"
+                **value.dict(exclude_unset=True), type="singlyLinkedListValue"
             )
         )
 
@@ -65,7 +61,7 @@ class _Factory:
     ) -> VariableValue:
         return VariableValue(
             __root__=_VariableValue.DoublyLinkedListValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="doublyLinkedListValue"
+                **value.dict(exclude_unset=True), type="doublyLinkedListValue"
             )
         )
 
@@ -122,23 +118,27 @@ class VariableValue(pydantic.BaseModel):
         if self.__root__.type == "charValue":
             return char_value(self.__root__.value)
         if self.__root__.type == "mapValue":
-            return map_value(resources_commons_types_map_value_MapValue(**self.__root__.dict(exclude_unset=True)))
+            return map_value(
+                resources_commons_types_map_value_MapValue(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
         if self.__root__.type == "listValue":
             return list_value(self.__root__.value)
         if self.__root__.type == "binaryTreeValue":
             return binary_tree_value(
-                resources_commons_types_binary_tree_value_BinaryTreeValue(**self.__root__.dict(exclude_unset=True))
+                resources_commons_types_binary_tree_value_BinaryTreeValue(
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
+                )
             )
         if self.__root__.type == "singlyLinkedListValue":
             return singly_linked_list_value(
                 resources_commons_types_singly_linked_list_value_SinglyLinkedListValue(
-                    **self.__root__.dict(exclude_unset=True)
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
                 )
             )
         if self.__root__.type == "doublyLinkedListValue":
             return doubly_linked_list_value(
                 resources_commons_types_doubly_linked_list_value_DoublyLinkedListValue(
-                    **self.__root__.dict(exclude_unset=True)
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
                 )
             )
         if self.__root__.type == "nullValue":

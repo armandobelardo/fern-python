@@ -30,14 +30,10 @@ class _Factory:
         return VariableType(__root__=_VariableType.CharType(type="charType"))
 
     def list_type(self, value: resources_commons_types_list_type_ListType) -> VariableType:
-        return VariableType(
-            __root__=_VariableType.ListType(**value.dict(exclude_unset=True, exclude="type"), type="listType")
-        )
+        return VariableType(__root__=_VariableType.ListType(**value.dict(exclude_unset=True), type="listType"))
 
     def map_type(self, value: resources_commons_types_map_type_MapType) -> VariableType:
-        return VariableType(
-            __root__=_VariableType.MapType(**value.dict(exclude_unset=True, exclude="type"), type="mapType")
-        )
+        return VariableType(__root__=_VariableType.MapType(**value.dict(exclude_unset=True), type="mapType"))
 
     def binary_tree_type(self) -> VariableType:
         return VariableType(__root__=_VariableType.BinaryTreeType(type="binaryTreeType"))
@@ -92,9 +88,13 @@ class VariableType(pydantic.BaseModel):
         if self.__root__.type == "charType":
             return char_type()
         if self.__root__.type == "listType":
-            return list_type(resources_commons_types_list_type_ListType(**self.__root__.dict(exclude_unset=True)))
+            return list_type(
+                resources_commons_types_list_type_ListType(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
         if self.__root__.type == "mapType":
-            return map_type(resources_commons_types_map_type_MapType(**self.__root__.dict(exclude_unset=True)))
+            return map_type(
+                resources_commons_types_map_type_MapType(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
         if self.__root__.type == "binaryTreeType":
             return binary_tree_type()
         if self.__root__.type == "singlyLinkedListType":

@@ -21,14 +21,12 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def deep_equality(self, value: DeepEqualityCorrectnessCheck) -> AssertCorrectnessCheck:
         return AssertCorrectnessCheck(
-            __root__=_AssertCorrectnessCheck.DeepEquality(
-                **value.dict(exclude_unset=True, exclude="type"), type="deepEquality"
-            )
+            __root__=_AssertCorrectnessCheck.DeepEquality(**value.dict(exclude_unset=True), type="deepEquality")
         )
 
     def custom(self, value: VoidFunctionDefinitionThatTakesActualResult) -> AssertCorrectnessCheck:
         return AssertCorrectnessCheck(
-            __root__=_AssertCorrectnessCheck.Custom(**value.dict(exclude_unset=True, exclude="type"), type="custom")
+            __root__=_AssertCorrectnessCheck.Custom(**value.dict(exclude_unset=True), type="custom")
         )
 
 
@@ -44,9 +42,11 @@ class AssertCorrectnessCheck(pydantic.BaseModel):
         custom: typing.Callable[[VoidFunctionDefinitionThatTakesActualResult], T_Result],
     ) -> T_Result:
         if self.__root__.type == "deepEquality":
-            return deep_equality(DeepEqualityCorrectnessCheck(**self.__root__.dict(exclude_unset=True)))
+            return deep_equality(DeepEqualityCorrectnessCheck(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "custom":
-            return custom(VoidFunctionDefinitionThatTakesActualResult(**self.__root__.dict(exclude_unset=True)))
+            return custom(
+                VoidFunctionDefinitionThatTakesActualResult(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
 
     __root__: typing_extensions.Annotated[
         typing.Union[_AssertCorrectnessCheck.DeepEquality, _AssertCorrectnessCheck.Custom],

@@ -22,9 +22,7 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def graded(self, value: TestCaseResultWithStdout) -> SubmissionStatusForTestCase:
         return SubmissionStatusForTestCase(
-            __root__=_SubmissionStatusForTestCase.Graded(
-                **value.dict(exclude_unset=True, exclude="type"), type="graded"
-            )
+            __root__=_SubmissionStatusForTestCase.Graded(**value.dict(exclude_unset=True), type="graded")
         )
 
     def graded_v_2(self, value: TestCaseGrade) -> SubmissionStatusForTestCase:
@@ -32,9 +30,7 @@ class _Factory:
 
     def traced(self, value: TracedTestCase) -> SubmissionStatusForTestCase:
         return SubmissionStatusForTestCase(
-            __root__=_SubmissionStatusForTestCase.Traced(
-                **value.dict(exclude_unset=True, exclude="type"), type="traced"
-            )
+            __root__=_SubmissionStatusForTestCase.Traced(**value.dict(exclude_unset=True), type="traced")
         )
 
 
@@ -55,11 +51,11 @@ class SubmissionStatusForTestCase(pydantic.BaseModel):
         traced: typing.Callable[[TracedTestCase], T_Result],
     ) -> T_Result:
         if self.__root__.type == "graded":
-            return graded(TestCaseResultWithStdout(**self.__root__.dict(exclude_unset=True)))
+            return graded(TestCaseResultWithStdout(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "gradedV2":
             return graded_v_2(self.__root__.value)
         if self.__root__.type == "traced":
-            return traced(TracedTestCase(**self.__root__.dict(exclude_unset=True)))
+            return traced(TracedTestCase(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[

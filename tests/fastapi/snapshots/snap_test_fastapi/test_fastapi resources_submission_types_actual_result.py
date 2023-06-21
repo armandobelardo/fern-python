@@ -21,9 +21,7 @@ class _Factory:
         return ActualResult(__root__=_ActualResult.Value(type="value", value=value))
 
     def exception(self, value: ExceptionInfo) -> ActualResult:
-        return ActualResult(
-            __root__=_ActualResult.Exception(**value.dict(exclude_unset=True, exclude="type"), type="exception")
-        )
+        return ActualResult(__root__=_ActualResult.Exception(**value.dict(exclude_unset=True), type="exception"))
 
     def exception_v_2(self, value: resources_submission_types_exception_v_2_ExceptionV2) -> ActualResult:
         return ActualResult(__root__=_ActualResult.ExceptionV2(type="exceptionV2", value=value))
@@ -44,7 +42,7 @@ class ActualResult(pydantic.BaseModel):
         if self.__root__.type == "value":
             return value(self.__root__.value)
         if self.__root__.type == "exception":
-            return exception(ExceptionInfo(**self.__root__.dict(exclude_unset=True)))
+            return exception(ExceptionInfo(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "exceptionV2":
             return exception_v_2(self.__root__.value)
 

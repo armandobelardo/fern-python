@@ -20,14 +20,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def hidden(self, value: TestCaseHiddenGrade) -> TestCaseGrade:
-        return TestCaseGrade(
-            __root__=_TestCaseGrade.Hidden(**value.dict(exclude_unset=True, exclude="type"), type="hidden")
-        )
+        return TestCaseGrade(__root__=_TestCaseGrade.Hidden(**value.dict(exclude_unset=True), type="hidden"))
 
     def non_hidden(self, value: TestCaseNonHiddenGrade) -> TestCaseGrade:
-        return TestCaseGrade(
-            __root__=_TestCaseGrade.NonHidden(**value.dict(exclude_unset=True, exclude="type"), type="nonHidden")
-        )
+        return TestCaseGrade(__root__=_TestCaseGrade.NonHidden(**value.dict(exclude_unset=True), type="nonHidden"))
 
 
 class TestCaseGrade(pydantic.BaseModel):
@@ -42,9 +38,9 @@ class TestCaseGrade(pydantic.BaseModel):
         non_hidden: typing.Callable[[TestCaseNonHiddenGrade], T_Result],
     ) -> T_Result:
         if self.__root__.type == "hidden":
-            return hidden(TestCaseHiddenGrade(**self.__root__.dict(exclude_unset=True)))
+            return hidden(TestCaseHiddenGrade(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "nonHidden":
-            return non_hidden(TestCaseNonHiddenGrade(**self.__root__.dict(exclude_unset=True)))
+            return non_hidden(TestCaseNonHiddenGrade(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[_TestCaseGrade.Hidden, _TestCaseGrade.NonHidden], pydantic.Field(discriminator="type")

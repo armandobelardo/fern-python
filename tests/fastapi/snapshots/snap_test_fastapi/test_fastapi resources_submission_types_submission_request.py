@@ -25,7 +25,7 @@ class _Factory:
     ) -> SubmissionRequest:
         return SubmissionRequest(
             __root__=_SubmissionRequest.InitializeProblemRequest(
-                **value.dict(exclude_unset=True, exclude="type"), type="initializeProblemRequest"
+                **value.dict(exclude_unset=True), type="initializeProblemRequest"
             )
         )
 
@@ -36,20 +36,16 @@ class _Factory:
 
     def submit_v_2(self, value: SubmitRequestV2) -> SubmissionRequest:
         return SubmissionRequest(
-            __root__=_SubmissionRequest.SubmitV2(**value.dict(exclude_unset=True, exclude="type"), type="submitV2")
+            __root__=_SubmissionRequest.SubmitV2(**value.dict(exclude_unset=True), type="submitV2")
         )
 
     def workspace_submit(self, value: WorkspaceSubmitRequest) -> SubmissionRequest:
         return SubmissionRequest(
-            __root__=_SubmissionRequest.WorkspaceSubmit(
-                **value.dict(exclude_unset=True, exclude="type"), type="workspaceSubmit"
-            )
+            __root__=_SubmissionRequest.WorkspaceSubmit(**value.dict(exclude_unset=True), type="workspaceSubmit")
         )
 
     def stop(self, value: StopRequest) -> SubmissionRequest:
-        return SubmissionRequest(
-            __root__=_SubmissionRequest.Stop(**value.dict(exclude_unset=True, exclude="type"), type="stop")
-        )
+        return SubmissionRequest(__root__=_SubmissionRequest.Stop(**value.dict(exclude_unset=True), type="stop"))
 
 
 class SubmissionRequest(pydantic.BaseModel):
@@ -79,17 +75,17 @@ class SubmissionRequest(pydantic.BaseModel):
         if self.__root__.type == "initializeProblemRequest":
             return initialize_problem_request(
                 resources_submission_types_initialize_problem_request_InitializeProblemRequest(
-                    **self.__root__.dict(exclude_unset=True)
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
                 )
             )
         if self.__root__.type == "initializeWorkspaceRequest":
             return initialize_workspace_request()
         if self.__root__.type == "submitV2":
-            return submit_v_2(SubmitRequestV2(**self.__root__.dict(exclude_unset=True)))
+            return submit_v_2(SubmitRequestV2(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "workspaceSubmit":
-            return workspace_submit(WorkspaceSubmitRequest(**self.__root__.dict(exclude_unset=True)))
+            return workspace_submit(WorkspaceSubmitRequest(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "stop":
-            return stop(StopRequest(**self.__root__.dict(exclude_unset=True)))
+            return stop(StopRequest(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[

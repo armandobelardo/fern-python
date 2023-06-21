@@ -17,9 +17,7 @@ T_Result = typing.TypeVar("T_Result")
 class _Factory:
     def generic(self, value: GenericCreateProblemError) -> CreateProblemError:
         return CreateProblemError(
-            __root__=_CreateProblemError.Generic(
-                **value.dict(exclude_unset=True, exclude="_type"), error_type="generic"
-            )
+            __root__=_CreateProblemError.Generic(**value.dict(exclude_unset=True), error_type="generic")
         )
 
 
@@ -31,7 +29,7 @@ class CreateProblemError(pydantic.BaseModel):
 
     def visit(self, generic: typing.Callable[[GenericCreateProblemError], T_Result]) -> T_Result:
         if self.__root__.error_type == "generic":
-            return generic(GenericCreateProblemError(**self.__root__.dict(exclude_unset=True)))
+            return generic(GenericCreateProblemError(**self.__root__.dict(exclude_unset=True, exclude="_type")))
 
     __root__: typing.Union[_CreateProblemError.Generic]
 

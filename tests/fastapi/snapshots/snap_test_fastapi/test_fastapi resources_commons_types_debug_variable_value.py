@@ -35,7 +35,7 @@ class _Factory:
 
     def map_value(self, value: DebugMapValue) -> DebugVariableValue:
         return DebugVariableValue(
-            __root__=_DebugVariableValue.MapValue(**value.dict(exclude_unset=True, exclude="type"), type="mapValue")
+            __root__=_DebugVariableValue.MapValue(**value.dict(exclude_unset=True), type="mapValue")
         )
 
     def list_value(self, value: typing.List[DebugVariableValue]) -> DebugVariableValue:
@@ -44,21 +44,21 @@ class _Factory:
     def binary_tree_node_value(self, value: BinaryTreeNodeAndTreeValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.BinaryTreeNodeValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="binaryTreeNodeValue"
+                **value.dict(exclude_unset=True), type="binaryTreeNodeValue"
             )
         )
 
     def singly_linked_list_node_value(self, value: SinglyLinkedListNodeAndListValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.SinglyLinkedListNodeValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="singlyLinkedListNodeValue"
+                **value.dict(exclude_unset=True), type="singlyLinkedListNodeValue"
             )
         )
 
     def doubly_linked_list_node_value(self, value: DoublyLinkedListNodeAndListValue) -> DebugVariableValue:
         return DebugVariableValue(
             __root__=_DebugVariableValue.DoublyLinkedListNodeValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="doublyLinkedListNodeValue"
+                **value.dict(exclude_unset=True), type="doublyLinkedListNodeValue"
             )
         )
 
@@ -70,9 +70,7 @@ class _Factory:
 
     def generic_value(self, value: resources_commons_types_generic_value_GenericValue) -> DebugVariableValue:
         return DebugVariableValue(
-            __root__=_DebugVariableValue.GenericValue(
-                **value.dict(exclude_unset=True, exclude="type"), type="genericValue"
-            )
+            __root__=_DebugVariableValue.GenericValue(**value.dict(exclude_unset=True), type="genericValue")
         )
 
 
@@ -125,18 +123,20 @@ class DebugVariableValue(pydantic.BaseModel):
         if self.__root__.type == "charValue":
             return char_value(self.__root__.value)
         if self.__root__.type == "mapValue":
-            return map_value(DebugMapValue(**self.__root__.dict(exclude_unset=True)))
+            return map_value(DebugMapValue(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "listValue":
             return list_value(self.__root__.value)
         if self.__root__.type == "binaryTreeNodeValue":
-            return binary_tree_node_value(BinaryTreeNodeAndTreeValue(**self.__root__.dict(exclude_unset=True)))
+            return binary_tree_node_value(
+                BinaryTreeNodeAndTreeValue(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
         if self.__root__.type == "singlyLinkedListNodeValue":
             return singly_linked_list_node_value(
-                SinglyLinkedListNodeAndListValue(**self.__root__.dict(exclude_unset=True))
+                SinglyLinkedListNodeAndListValue(**self.__root__.dict(exclude_unset=True, exclude="type"))
             )
         if self.__root__.type == "doublyLinkedListNodeValue":
             return doubly_linked_list_node_value(
-                DoublyLinkedListNodeAndListValue(**self.__root__.dict(exclude_unset=True))
+                DoublyLinkedListNodeAndListValue(**self.__root__.dict(exclude_unset=True, exclude="type"))
             )
         if self.__root__.type == "undefinedValue":
             return undefined_value()
@@ -144,7 +144,9 @@ class DebugVariableValue(pydantic.BaseModel):
             return null_value()
         if self.__root__.type == "genericValue":
             return generic_value(
-                resources_commons_types_generic_value_GenericValue(**self.__root__.dict(exclude_unset=True))
+                resources_commons_types_generic_value_GenericValue(
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
+                )
             )
 
     __root__: typing_extensions.Annotated[

@@ -26,7 +26,7 @@ class _Factory:
     ) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.SubmissionIdNotFound(
-                **value.dict(exclude_unset=True, exclude="type"), type="submissionIdNotFound"
+                **value.dict(exclude_unset=True), type="submissionIdNotFound"
             )
         )
 
@@ -35,14 +35,14 @@ class _Factory:
     ) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.CustomTestCasesUnsupported(
-                **value.dict(exclude_unset=True, exclude="type"), type="customTestCasesUnsupported"
+                **value.dict(exclude_unset=True), type="customTestCasesUnsupported"
             )
         )
 
     def unexpected_language(self, value: UnexpectedLanguageError) -> InvalidRequestCause:
         return InvalidRequestCause(
             __root__=_InvalidRequestCause.UnexpectedLanguage(
-                **value.dict(exclude_unset=True, exclude="type"), type="unexpectedLanguage"
+                **value.dict(exclude_unset=True), type="unexpectedLanguage"
             )
         )
 
@@ -72,17 +72,19 @@ class InvalidRequestCause(pydantic.BaseModel):
         if self.__root__.type == "submissionIdNotFound":
             return submission_id_not_found(
                 resources_submission_types_submission_id_not_found_SubmissionIdNotFound(
-                    **self.__root__.dict(exclude_unset=True)
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
                 )
             )
         if self.__root__.type == "customTestCasesUnsupported":
             return custom_test_cases_unsupported(
                 resources_submission_types_custom_test_cases_unsupported_CustomTestCasesUnsupported(
-                    **self.__root__.dict(exclude_unset=True)
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
                 )
             )
         if self.__root__.type == "unexpectedLanguage":
-            return unexpected_language(UnexpectedLanguageError(**self.__root__.dict(exclude_unset=True)))
+            return unexpected_language(
+                UnexpectedLanguageError(**self.__root__.dict(exclude_unset=True, exclude="type"))
+            )
 
     __root__: typing_extensions.Annotated[
         typing.Union[

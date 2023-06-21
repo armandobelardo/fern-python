@@ -28,12 +28,12 @@ class _Factory:
 
     def ran(self, value: WorkspaceRunDetails) -> WorkspaceSubmissionStatus:
         return WorkspaceSubmissionStatus(
-            __root__=_WorkspaceSubmissionStatus.Ran(**value.dict(exclude_unset=True, exclude="type"), type="ran")
+            __root__=_WorkspaceSubmissionStatus.Ran(**value.dict(exclude_unset=True), type="ran")
         )
 
     def traced(self, value: WorkspaceRunDetails) -> WorkspaceSubmissionStatus:
         return WorkspaceSubmissionStatus(
-            __root__=_WorkspaceSubmissionStatus.Traced(**value.dict(exclude_unset=True, exclude="type"), type="traced")
+            __root__=_WorkspaceSubmissionStatus.Traced(**value.dict(exclude_unset=True), type="traced")
         )
 
 
@@ -66,9 +66,9 @@ class WorkspaceSubmissionStatus(pydantic.BaseModel):
         if self.__root__.type == "running":
             return running(self.__root__.value)
         if self.__root__.type == "ran":
-            return ran(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True)))
+            return ran(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "traced":
-            return traced(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True)))
+            return traced(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[

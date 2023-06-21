@@ -18,19 +18,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def compile_error(self, value: resources_submission_types_compile_error_CompileError) -> ErrorInfo:
-        return ErrorInfo(
-            __root__=_ErrorInfo.CompileError(**value.dict(exclude_unset=True, exclude="type"), type="compileError")
-        )
+        return ErrorInfo(__root__=_ErrorInfo.CompileError(**value.dict(exclude_unset=True), type="compileError"))
 
     def runtime_error(self, value: resources_submission_types_runtime_error_RuntimeError) -> ErrorInfo:
-        return ErrorInfo(
-            __root__=_ErrorInfo.RuntimeError(**value.dict(exclude_unset=True, exclude="type"), type="runtimeError")
-        )
+        return ErrorInfo(__root__=_ErrorInfo.RuntimeError(**value.dict(exclude_unset=True), type="runtimeError"))
 
     def internal_error(self, value: resources_submission_types_internal_error_InternalError) -> ErrorInfo:
-        return ErrorInfo(
-            __root__=_ErrorInfo.InternalError(**value.dict(exclude_unset=True, exclude="type"), type="internalError")
-        )
+        return ErrorInfo(__root__=_ErrorInfo.InternalError(**value.dict(exclude_unset=True), type="internalError"))
 
 
 class ErrorInfo(pydantic.BaseModel):
@@ -47,15 +41,21 @@ class ErrorInfo(pydantic.BaseModel):
     ) -> T_Result:
         if self.__root__.type == "compileError":
             return compile_error(
-                resources_submission_types_compile_error_CompileError(**self.__root__.dict(exclude_unset=True))
+                resources_submission_types_compile_error_CompileError(
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
+                )
             )
         if self.__root__.type == "runtimeError":
             return runtime_error(
-                resources_submission_types_runtime_error_RuntimeError(**self.__root__.dict(exclude_unset=True))
+                resources_submission_types_runtime_error_RuntimeError(
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
+                )
             )
         if self.__root__.type == "internalError":
             return internal_error(
-                resources_submission_types_internal_error_InternalError(**self.__root__.dict(exclude_unset=True))
+                resources_submission_types_internal_error_InternalError(
+                    **self.__root__.dict(exclude_unset=True, exclude="type")
+                )
             )
 
     __root__: typing_extensions.Annotated[

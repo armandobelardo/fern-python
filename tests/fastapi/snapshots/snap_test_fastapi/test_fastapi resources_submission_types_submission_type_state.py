@@ -20,13 +20,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class _Factory:
     def test(self, value: TestSubmissionState) -> SubmissionTypeState:
-        return SubmissionTypeState(
-            __root__=_SubmissionTypeState.Test(**value.dict(exclude_unset=True, exclude="type"), type="test")
-        )
+        return SubmissionTypeState(__root__=_SubmissionTypeState.Test(**value.dict(exclude_unset=True), type="test"))
 
     def workspace(self, value: WorkspaceSubmissionState) -> SubmissionTypeState:
         return SubmissionTypeState(
-            __root__=_SubmissionTypeState.Workspace(**value.dict(exclude_unset=True, exclude="type"), type="workspace")
+            __root__=_SubmissionTypeState.Workspace(**value.dict(exclude_unset=True), type="workspace")
         )
 
 
@@ -42,9 +40,9 @@ class SubmissionTypeState(pydantic.BaseModel):
         workspace: typing.Callable[[WorkspaceSubmissionState], T_Result],
     ) -> T_Result:
         if self.__root__.type == "test":
-            return test(TestSubmissionState(**self.__root__.dict(exclude_unset=True)))
+            return test(TestSubmissionState(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "workspace":
-            return workspace(WorkspaceSubmissionState(**self.__root__.dict(exclude_unset=True)))
+            return workspace(WorkspaceSubmissionState(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[_SubmissionTypeState.Test, _SubmissionTypeState.Workspace], pydantic.Field(discriminator="type")

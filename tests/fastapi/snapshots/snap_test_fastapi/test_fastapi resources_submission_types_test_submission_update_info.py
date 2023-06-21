@@ -32,15 +32,13 @@ class _Factory:
 
     def graded_test_case(self, value: GradedTestCaseUpdate) -> TestSubmissionUpdateInfo:
         return TestSubmissionUpdateInfo(
-            __root__=_TestSubmissionUpdateInfo.GradedTestCase(
-                **value.dict(exclude_unset=True, exclude="type"), type="gradedTestCase"
-            )
+            __root__=_TestSubmissionUpdateInfo.GradedTestCase(**value.dict(exclude_unset=True), type="gradedTestCase")
         )
 
     def recorded_test_case(self, value: RecordedTestCaseUpdate) -> TestSubmissionUpdateInfo:
         return TestSubmissionUpdateInfo(
             __root__=_TestSubmissionUpdateInfo.RecordedTestCase(
-                **value.dict(exclude_unset=True, exclude="type"), type="recordedTestCase"
+                **value.dict(exclude_unset=True), type="recordedTestCase"
             )
         )
 
@@ -79,9 +77,9 @@ class TestSubmissionUpdateInfo(pydantic.BaseModel):
         if self.__root__.type == "errored":
             return errored(self.__root__.value)
         if self.__root__.type == "gradedTestCase":
-            return graded_test_case(GradedTestCaseUpdate(**self.__root__.dict(exclude_unset=True)))
+            return graded_test_case(GradedTestCaseUpdate(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "recordedTestCase":
-            return recorded_test_case(RecordedTestCaseUpdate(**self.__root__.dict(exclude_unset=True)))
+            return recorded_test_case(RecordedTestCaseUpdate(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "finished":
             return finished()
 

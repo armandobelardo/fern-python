@@ -27,7 +27,7 @@ class _Factory:
     def implementation(self, value: TestCaseImplementation) -> TestCaseImplementationReference:
         return TestCaseImplementationReference(
             __root__=_TestCaseImplementationReference.Implementation(
-                **value.dict(exclude_unset=True, exclude="type"), type="implementation"
+                **value.dict(exclude_unset=True), type="implementation"
             )
         )
 
@@ -48,7 +48,7 @@ class TestCaseImplementationReference(pydantic.BaseModel):
         if self.__root__.type == "templateId":
             return template_id(self.__root__.value)
         if self.__root__.type == "implementation":
-            return implementation(TestCaseImplementation(**self.__root__.dict(exclude_unset=True)))
+            return implementation(TestCaseImplementation(**self.__root__.dict(exclude_unset=True, exclude="type")))
 
     __root__: typing_extensions.Annotated[
         typing.Union[_TestCaseImplementationReference.TemplateId, _TestCaseImplementationReference.Implementation],

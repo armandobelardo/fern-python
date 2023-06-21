@@ -25,7 +25,7 @@ class _Factory:
 
     def ran(self, value: WorkspaceRunDetails) -> WorkspaceSubmissionUpdateInfo:
         return WorkspaceSubmissionUpdateInfo(
-            __root__=_WorkspaceSubmissionUpdateInfo.Ran(**value.dict(exclude_unset=True, exclude="type"), type="ran")
+            __root__=_WorkspaceSubmissionUpdateInfo.Ran(**value.dict(exclude_unset=True), type="ran")
         )
 
     def stopped(self) -> WorkspaceSubmissionUpdateInfo:
@@ -36,9 +36,7 @@ class _Factory:
 
     def traced_v_2(self, value: WorkspaceTracedUpdate) -> WorkspaceSubmissionUpdateInfo:
         return WorkspaceSubmissionUpdateInfo(
-            __root__=_WorkspaceSubmissionUpdateInfo.TracedV2(
-                **value.dict(exclude_unset=True, exclude="type"), type="tracedV2"
-            )
+            __root__=_WorkspaceSubmissionUpdateInfo.TracedV2(**value.dict(exclude_unset=True), type="tracedV2")
         )
 
     def errored(self, value: ErrorInfo) -> WorkspaceSubmissionUpdateInfo:
@@ -79,13 +77,13 @@ class WorkspaceSubmissionUpdateInfo(pydantic.BaseModel):
         if self.__root__.type == "running":
             return running(self.__root__.value)
         if self.__root__.type == "ran":
-            return ran(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True)))
+            return ran(WorkspaceRunDetails(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "stopped":
             return stopped()
         if self.__root__.type == "traced":
             return traced()
         if self.__root__.type == "tracedV2":
-            return traced_v_2(WorkspaceTracedUpdate(**self.__root__.dict(exclude_unset=True)))
+            return traced_v_2(WorkspaceTracedUpdate(**self.__root__.dict(exclude_unset=True, exclude="type")))
         if self.__root__.type == "errored":
             return errored(self.__root__.value)
         if self.__root__.type == "finished":
