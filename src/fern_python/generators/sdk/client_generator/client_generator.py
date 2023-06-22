@@ -283,9 +283,15 @@ class ClientGenerator:
                         (param.constructor_parameter_name, AST.Expression(f"self.{param.private_member_name}"))
                         for param in self._get_constructor_parameters(is_async=is_async)
                     ]
-                    kwargs.append(
-                        ("client", AST.Expression(f"self.{self._get_client_constructor_member_name(constructor_parameters)}")),
-                    )
+                    if self._is_root:
+                        kwargs.append(
+                            (
+                                "client",
+                                AST.Expression(
+                                    f"self.{self._get_client_constructor_member_name(constructor_parameters)}"
+                                ),
+                            ),
+                        )
                     writer.write_node(
                         AST.ClassInstantiation(
                             class_=self._context.get_reference_to_async_subpackage_service(subpackage_id)

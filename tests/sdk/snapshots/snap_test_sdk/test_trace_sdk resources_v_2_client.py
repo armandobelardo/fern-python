@@ -26,18 +26,10 @@ class V2Client:
         self._token = token
         self._client = client
         self.problem = ProblemClient(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
         self.v_3 = V3Client(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
 
     def test(self) -> None:
@@ -75,18 +67,10 @@ class AsyncV2Client:
         self._token = token
         self._client = client
         self.problem = AsyncProblemClient(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
         self.v_3 = AsyncV3Client(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
 
     async def test(self) -> None:

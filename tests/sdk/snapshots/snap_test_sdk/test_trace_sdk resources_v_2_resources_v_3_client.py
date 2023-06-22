@@ -22,11 +22,7 @@ class V3Client:
         self._token = token
         self._client = client
         self.problem = ProblemClient(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
 
 
@@ -44,9 +40,5 @@ class AsyncV3Client:
         self._token = token
         self._client = client
         self.problem = AsyncProblemClient(
-            environment=self._environment,
-            x_random_header=self._x_random_header,
-            token=self._token,
-            client=self._client,
-            client=self.__client,
+            environment=self._environment, x_random_header=self._x_random_header, token=self._token, client=self._client
         )
