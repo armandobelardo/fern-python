@@ -274,6 +274,7 @@ class ClientGenerator:
                         ],
                     )
                 )
+                writer.write_newline_if_last_line_not()
             for subpackage_id in self._package.subpackages:
                 subpackage = self._context.ir.subpackages[subpackage_id]
                 if subpackage.has_endpoints_in_tree:

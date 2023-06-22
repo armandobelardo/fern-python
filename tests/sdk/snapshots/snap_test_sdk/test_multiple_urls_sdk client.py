@@ -9,16 +9,18 @@ from .resources.commons.client import AsyncCommonsClient, CommonsClient
 
 
 class FernIr:
-    def __init__(self, *, environment: FernIrEnvironment = FernIrEnvironment.PRODUCTION
-    ):
+    def __init__(self, *, environment: FernIrEnvironment = FernIrEnvironment.PRODUCTION):
         self._environment = environment
-        self._client = httpx.Client(timeout=60)self.a = AClient(environment=self._environment, client=self._client)
+        self._client = httpx.Client(timeout=60)
+        self.a = AClient(environment=self._environment, client=self._client)
         self.b = BClient(environment=self._environment, client=self._client)
         self.commons = CommonsClient(environment=self._environment, client=self._client)
+
+
 class AsyncFernIr:
-    def __init__(self, *, environment: FernIrEnvironment = FernIrEnvironment.PRODUCTION
-    ):
+    def __init__(self, *, environment: FernIrEnvironment = FernIrEnvironment.PRODUCTION):
         self._environment = environment
-        self._client = httpx.AsyncClient(timeout=60)self.a = AsyncAClient(environment=self._environment, client=self._client)
+        self._client = httpx.AsyncClient(timeout=60)
+        self.a = AsyncAClient(environment=self._environment, client=self._client)
         self.b = AsyncBClient(environment=self._environment, client=self._client)
         self.commons = AsyncCommonsClient(environment=self._environment, client=self._client)

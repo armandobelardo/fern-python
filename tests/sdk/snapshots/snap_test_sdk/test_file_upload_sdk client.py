@@ -8,8 +8,12 @@ from .resources.movie.client import AsyncMovieClient, MovieClient
 class FernIr:
     def __init__(self, *, environment: str):
         self._environment = environment
-        self._client = httpx.Client(timeout=60)self.movie = MovieClient(environment=self._environment, client=self._client)
+        self._client = httpx.Client(timeout=60)
+        self.movie = MovieClient(environment=self._environment, client=self._client)
+
+
 class AsyncFernIr:
     def __init__(self, *, environment: str):
         self._environment = environment
-        self._client = httpx.AsyncClient(timeout=60)self.movie = AsyncMovieClient(environment=self._environment, client=self._client)
+        self._client = httpx.AsyncClient(timeout=60)
+        self.movie = AsyncMovieClient(environment=self._environment, client=self._client)

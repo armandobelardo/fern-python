@@ -9,9 +9,13 @@ class FernIr:
     def __init__(self, *, environment: str, header_auth: str):
         self._environment = environment
         self.header_auth = header_auth
-        self._client = httpx.Client(timeout=5)self.movie = MovieClient(environment=self._environment, header_auth=self.header_auth, client=self._client)
+        self._client = httpx.Client(timeout=5)
+        self.movie = MovieClient(environment=self._environment, header_auth=self.header_auth, client=self._client)
+
+
 class AsyncFernIr:
     def __init__(self, *, environment: str, header_auth: str):
         self._environment = environment
         self.header_auth = header_auth
-        self._client = httpx.AsyncClient(timeout=5)self.movie = AsyncMovieClient(environment=self._environment, header_auth=self.header_auth, client=self._client)
+        self._client = httpx.AsyncClient(timeout=5)
+        self.movie = AsyncMovieClient(environment=self._environment, header_auth=self.header_auth, client=self._client)
