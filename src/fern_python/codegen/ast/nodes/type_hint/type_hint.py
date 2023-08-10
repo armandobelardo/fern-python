@@ -142,6 +142,10 @@ class TypeHint(AstNode):
         return TypeHint(type=generic)
 
     @staticmethod
+    def file_upload() -> TypeHint:
+        return TypeHint(type=get_reference_to_fastapi_import("UploadFile"))
+
+    @staticmethod
     def cast(type_casted_to: TypeHint, value_being_casted: Expression) -> TypeHint:
         return TypeHint(
             type=get_reference_to_typing_import("cast"),
@@ -247,6 +251,13 @@ def get_reference_to_uuid_import(name: str) -> ClassReference:
 def get_reference_to_datetime_import(name: str) -> ClassReference:
     return ClassReference(
         import_=ReferenceImport(module=Module.built_in(("datetime",)), alias="dt"),
+        qualified_name_excluding_import=(name,),
+    )
+
+
+def get_reference_to_fastapi_import(name: str) -> ClassReference:
+    return ClassReference(
+        import_=ReferenceImport(module=Module.built_in(("fastapi",))),
         qualified_name_excluding_import=(name,),
     )
 

@@ -17,6 +17,7 @@ from .endpoint_parameters import (
     PathEndpointParameter,
     QueryEndpointParameter,
     ReferencedRequestEndpointParameter,
+    FileUploadRequestEndpointParameter,
 )
 
 
@@ -48,7 +49,7 @@ class EndpointGenerator:
                     reference=lambda request: ReferencedRequestEndpointParameter(
                         context=context, request_type=request.request_body_type
                     ),
-                    file_upload=lambda request: raise_file_upload_unsupported(),
+                    file_upload=FileUploadRequestEndpointParameter(context=context),
                 )
             )
         for path_parameter in service.path_parameters:

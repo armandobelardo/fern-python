@@ -24,6 +24,10 @@ class PydanticGeneratorContext(ABC):
         self.core_utilities = CoreUtilities()
 
     @abstractmethod
+    def get_type_hint_for_file_upload(self) -> AST.TypeHint:
+        ...
+
+    @abstractmethod
     def get_type_hint_for_type_reference(
         self,
         type_reference: ir_types.TypeReference,
