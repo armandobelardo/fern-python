@@ -77,6 +77,13 @@ class FastAPI:
 
     JSONResponse = JSONResponse
 
+    FileUploadType = AST.TypeHint(
+        type=AST.ClassReference(
+            qualified_name_excluding_import=("UploadFile",),
+            import_=AST.ReferenceImport(module=FAST_API_MODULE, named_import="params"),
+        )
+    )
+
     DependsType = AST.TypeHint(
         type=AST.ClassReference(
             qualified_name_excluding_import=("Depends",),

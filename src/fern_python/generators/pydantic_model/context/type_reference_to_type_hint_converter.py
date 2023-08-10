@@ -1,7 +1,7 @@
 from typing import Callable, Optional
 
 import fern.ir.resources as ir_types
-
+from fern_python.external_dependencies import FastAPI
 from fern_python.codegen import AST
 from fern_python.declaration_referencer import AbstractDeclarationReferencer
 
@@ -11,7 +11,7 @@ class TypeReferenceToTypeHintConverter:
         self._type_declaration_referencer = type_declaration_referencer
 
     def get_type_hint_for_file_upload(self) -> AST.TypeHint:
-        return AST.TypeHint.file_upload()
+        return AST.TypeHint.sequence(FastAPI.FileUploadType)
 
     def get_type_hint_for_type_reference(
         self,
