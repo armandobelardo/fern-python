@@ -11,7 +11,7 @@ class TypeReferenceToTypeHintConverter:
         self._type_declaration_referencer = type_declaration_referencer
 
     def get_type_hint_for_file_upload(self) -> AST.TypeHint:
-        return AST.TypeHint.file_upload
+        return AST.TypeHint.file_upload()
 
     def get_type_hint_for_type_reference(
         self,

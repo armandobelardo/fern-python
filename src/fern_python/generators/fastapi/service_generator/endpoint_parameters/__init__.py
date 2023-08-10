@@ -7,6 +7,7 @@ from .request import (
     InlinedRequestEndpointParameter,
     ReferencedRequestEndpointParameter,
     RequestEndpointParameter,
+    FileUploadRequestEndpointParameter,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "InlinedRequestEndpointParameter",
     "ReferencedRequestEndpointParameter",
     "HeaderEndpointParameter",
+    "FileUploadRequestEndpointParameter",
 ]

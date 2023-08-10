@@ -49,7 +49,7 @@ class EndpointGenerator:
                     reference=lambda request: ReferencedRequestEndpointParameter(
                         context=context, request_type=request.request_body_type
                     ),
-                    file_upload=FileUploadRequestEndpointParameter(context=context),
+                    file_upload=lambda _: FileUploadRequestEndpointParameter(context=context),
                 )
             )
         for path_parameter in service.path_parameters:
