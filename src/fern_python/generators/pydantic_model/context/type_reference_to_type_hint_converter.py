@@ -1,9 +1,10 @@
 from typing import Callable, Optional
 
 import fern.ir.resources as ir_types
-from fern_python.external_dependencies import FastAPI
+
 from fern_python.codegen import AST
 from fern_python.declaration_referencer import AbstractDeclarationReferencer
+from fern_python.external_dependencies import FastAPI
 
 
 class TypeReferenceToTypeHintConverter:

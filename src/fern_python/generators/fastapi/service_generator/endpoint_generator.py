@@ -12,12 +12,12 @@ from ..custom_config import FastAPICustomConfig
 from .endpoint_parameters import (
     AuthEndpointParameter,
     EndpointParameter,
+    get_file_upload_request_parameters,
     HeaderEndpointParameter,
     InlinedRequestEndpointParameter,
     PathEndpointParameter,
     QueryEndpointParameter,
     ReferencedRequestEndpointParameter,
-    FileUploadRequestEndpointParameter,
 )
 
 
@@ -39,19 +39,22 @@ class EndpointGenerator:
 
         self._parameters: List[EndpointParameter] = []
         if endpoint.request_body is not None:
-            self._parameters.append(
+            self._parameters.extend(
                 endpoint.request_body.visit(
-                    inlined_request_body=lambda request: InlinedRequestEndpointParameter(
-                        context=context,
-                        request=request,
-                        service_name=self._service.name,
-                    ),
-                    reference=lambda request: ReferencedRequestEndpointParameter(
-                        context=context, request_type=request.request_body_type
-                    ),
-                    file_upload=lambda _: FileUploadRequestEndpointParameter(context=context),
+                    inlined_request_body=lambda request: [
+                        InlinedRequestEndpointParameter(
+                            context=context,
+                            request=request,
+                            service_name=self._service.name,
+                        )
+                    ],
+                    reference=lambda request: [
+                        ReferencedRequestEndpointParameter(context=context, request_type=request.request_body_type)
+                    ],
+                    file_upload=lambda request: get_file_upload_request_parameters(context, request),
                 )
             )
+
         for path_parameter in service.path_parameters:
             self._parameters.append(PathEndpointParameter(context=context, path_parameter=path_parameter))
         for path_parameter in endpoint.path_parameters:
