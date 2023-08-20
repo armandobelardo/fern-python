@@ -4,10 +4,10 @@ from .header_endpoint_paramter import HeaderEndpointParameter
 from .path_endpoint_parameter import PathEndpointParameter
 from .query_endpoint_parameter import QueryEndpointParameter
 from .request import (
-    get_file_upload_request_parameters,
     InlinedRequestEndpointParameter,
     ReferencedRequestEndpointParameter,
     RequestEndpointParameter,
+    get_file_upload_request_parameters,
 )
 
 __all__ = [

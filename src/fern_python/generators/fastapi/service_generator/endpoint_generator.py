@@ -12,12 +12,12 @@ from ..custom_config import FastAPICustomConfig
 from .endpoint_parameters import (
     AuthEndpointParameter,
     EndpointParameter,
-    get_file_upload_request_parameters,
     HeaderEndpointParameter,
     InlinedRequestEndpointParameter,
     PathEndpointParameter,
     QueryEndpointParameter,
     ReferencedRequestEndpointParameter,
+    get_file_upload_request_parameters,
 )
 
 
