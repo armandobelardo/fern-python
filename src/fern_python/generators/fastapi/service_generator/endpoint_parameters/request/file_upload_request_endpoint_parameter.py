@@ -1,5 +1,9 @@
+from typing import List
+
 import fern.ir.resources as ir_types
+
 from fern_python.codegen import AST
+
 from ....context import FastApiGeneratorContext
 from .referenced_request_endpoint_parameter import ReferencedRequestEndpointParameter
 from .request_endpoint_parameter import RequestEndpointParameter
@@ -22,7 +26,7 @@ class FileUploadRequestEndpointParameter(RequestEndpointParameter):
 
 def get_file_upload_request_parameters(
     context: FastApiGeneratorContext, request: ir_types.FileUploadRequest
-) -> list[RequestEndpointParameter]:
+) -> List[RequestEndpointParameter]:
     return list(
         map(
             lambda property: property.visit(
