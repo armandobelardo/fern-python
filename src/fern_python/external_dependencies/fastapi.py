@@ -47,6 +47,8 @@ class APIRouter:
 class FastAPI:
     FastAPI = AST.TypeHint(type=_export("FastAPI"))
 
+    Form = AST.TypeHint(type=_export("Form"))
+
     Body = AST.Expression(
         AST.FunctionInvocation(
             function_definition=_export(

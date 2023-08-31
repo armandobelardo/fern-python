@@ -43,3 +43,13 @@ def test_fastapi_error_status_code(snapshot: SnapshotTest, tmpdir: Path) -> None
         filename_of_test=__file__,
         custom_config={"include_validators": True, "include_union_visitors": True},
     )
+
+def test_fastapi_file_upload(snapshot: SnapshotTest, tmpdir: Path) -> None:
+    run_snapshot_test(
+        snapshot=snapshot,
+        fixture_name="file-upload",
+        tmpdir=tmpdir,
+        cli=cli,
+        filename_of_test=__file__,
+        custom_config={"include_validators": True, "include_union_visitors": True},
+    )

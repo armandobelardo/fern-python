@@ -3,9 +3,9 @@ from typing import List
 import fern.ir.resources as ir_types
 
 from fern_python.codegen import AST
+from src.fern_python.external_dependencies.fastapi import FastAPI
 
 from ....context import FastApiGeneratorContext
-from .referenced_request_endpoint_parameter import ReferencedRequestEndpointParameter
 from .request_endpoint_parameter import RequestEndpointParameter
 
 
@@ -15,13 +15,28 @@ class FileUploadRequestEndpointParameter(RequestEndpointParameter):
         self._property = property
 
     def get_name(self) -> str:
-        return self._property.key.name.original_name
+        return self._property.key.name.snake_case.safe_name
 
     def _get_unsafe_name(self) -> str:
         return self._property.key.name.original_name
 
     def get_type(self) -> AST.TypeHint:
         return self._context.pydantic_generator_context.get_type_hint_for_file_upload()
+
+
+class FormEndpointParameter(RequestEndpointParameter):
+    def __init__(self, context: FastApiGeneratorContext, property: ir_types.InlinedRequestBodyProperty):
+        super().__init__(context=context)
+        self._property = property
+    
+    def get_name(self) -> str:
+        return self._property.name.name.snake_case.safe_name
+
+    def _get_unsafe_name(self) -> str:
+        return self._property.name.name.original_name
+
+    def get_type(self) -> AST.TypeHint:
+        return FastAPI.Form
 
 
 def get_file_upload_request_parameters(
@@ -31,8 +46,8 @@ def get_file_upload_request_parameters(
         map(
             lambda property: property.visit(
                 file=lambda prop: FileUploadRequestEndpointParameter(context=context, property=prop),
-                body_property=lambda prop: ReferencedRequestEndpointParameter(
-                    context=context, request_type=prop.value_type
+                body_property=lambda prop: FormEndpointParameter(
+                    context=context, property=prop
                 ),
             ),
             request.properties,
