@@ -8,6 +8,7 @@ from fern.generator_exec.resources.logging import (
     RegistryType,
     SuccessfulStatusUpdate,
 )
+
 from fern_python.generator_exec_wrapper import GeneratorExecWrapper
 
 from .abstract_generator import AbstractGenerator
