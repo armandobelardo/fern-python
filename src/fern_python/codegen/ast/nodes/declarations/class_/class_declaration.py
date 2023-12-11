@@ -187,4 +187,4 @@ class ClassDeclaration(AstNode):
                 writer.write_newline_if_last_line_not()
                 did_write_statement = True
             if not did_write_statement:
-                writer.write("pass")
+                writer.write("pass\n")
