@@ -8,7 +8,6 @@ from fern.generator_exec.resources.logging import (
     RegistryType,
     SuccessfulStatusUpdate,
 )
-
 from fern_python.generator_exec_wrapper import GeneratorExecWrapper
 
 from .abstract_generator import AbstractGenerator
@@ -24,7 +23,6 @@ class GeneratorCli:
         generator_exec_wrapper = GeneratorExecWrapper(generator_config=config)
         try:
             ir = ir_types.IntermediateRepresentation.parse_file(config.ir_filepath)
-
             generator_exec_wrapper.send_update(
                 GeneratorUpdate.factory.init_v_2(
                     InitUpdateV2(

@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Set
 
 import fern.ir.resources as ir_types
 
@@ -38,46 +38,49 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
     def generate(self) -> None:
         single_union_type_references: List[LocalClassReference] = []
         all_referenced_types: List[ir_types.TypeReference] = []
+        circular_children: List[ir_types.TypeReference] = []
 
         class_reference_for_base = None
-        if len(self._union.base_properties) > 0:
-            is_base_class_name_present = False
-            for single_union_type in self._union.types:
-                type_union = single_union_type.shape.get_as_union()
-                if (
-                    type_union.properties_type == "samePropertiesAsObject"
-                    and type_union.name.pascal_case == SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
-                ):
-                    is_base_class_name_present = True
+        is_base_class_name_present = False
+        for single_union_type in self._union.types:
+            type_union = single_union_type.shape.get_as_union()
+            if (
+                type_union.properties_type == "samePropertiesAsObject"
+                and type_union.name.pascal_case == SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
+            ):
+                is_base_class_name_present = True
 
-            base_class_name = (
-                SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME_WITH_UNDERSCORE
-                if is_base_class_name_present
-                else SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
-            )
-            with FernAwarePydanticModel(
-                class_name=base_class_name,
-                type_name=self._name,
-                extends=[],
-                context=self._context,
-                custom_config=self._custom_config,
-                source_file=self._source_file,
-                docstring=None,
-                snippet=self._snippet,
-                should_export=False,
-            ) as base_union_pydantic_model:
-                for property in self._union.base_properties:
-                    base_union_pydantic_model.add_field(
-                        name=property.name.name.snake_case.safe_name,
-                        pascal_case_field_name=property.name.name.pascal_case.unsafe_name,
-                        type_reference=property.value_type,
-                        json_field_name=property.name.wire_value,
-                        description=property.docs,
-                    )
-                    all_referenced_types.append(property.value_type)
-                class_reference_for_base = ClassReference(
-                    qualified_name_excluding_import=(base_class_name,),
+        base_class_name = (
+            SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME_WITH_UNDERSCORE
+            if is_base_class_name_present
+            else SimpleDiscriminatedUnionGenerator.BASE_CLASS_NAME
+        )
+
+        base_union_pydantic_model = FernAwarePydanticModel(
+            class_name=base_class_name,
+            type_name=self._name,
+            extends=[],
+            context=self._context,
+            custom_config=self._custom_config,
+            source_file=self._source_file,
+            docstring=None,
+            snippet=self._snippet,
+            should_export=False,
+        )
+
+        if len(self._union.base_properties) > 0:
+            for property in self._union.base_properties:
+                base_union_pydantic_model.add_field(
+                    name=property.name.name.snake_case.safe_name,
+                    pascal_case_field_name=property.name.name.pascal_case.unsafe_name,
+                    type_reference=property.value_type,
+                    json_field_name=property.name.wire_value,
+                    description=property.docs,
                 )
+                all_referenced_types.append(property.value_type)
+            class_reference_for_base = ClassReference(
+                qualified_name_excluding_import=(base_class_name,),
+            )
 
         for single_union_type in self._union.types:
             single_union_type_base = single_union_type.shape.visit(
@@ -128,7 +131,7 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
 
                 # we assume that the forward-refed types are the ones
                 # that circularly reference this union type
-                referenced_types: List[ir_types.DeclaredTypeName] = single_union_type.shape.visit(
+                referenced_types: Set[ir_types.DeclaredTypeName] = single_union_type.shape.visit(
                     same_properties_as_object=lambda type_name: self._context.get_referenced_types_of_type_declaration(
                         self._context.get_declaration_for_type_name(type_name),
                     ),
@@ -137,28 +140,23 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
                     ),
                     no_properties=lambda: [],
                 )
-                forward_refed_types = [
-                    referenced_type
-                    for referenced_type in referenced_types
-                    if self._context.does_type_reference_other_type(referenced_type, self._name)
-                ]
-                if len(forward_refed_types) > 0:
+
+                if self._name in referenced_types:
                     # when calling update_forward_refs, Pydantic will throw
                     # if an inherited field's type is not defined in this
                     # file. https://github.com/pydantic/pydantic/issues/4902.
                     # as a workaround, we explicitly pass references to update_forward_refs
                     # so they are in scope
-                    internal_pydantic_model_for_single_union_type.update_forward_refs(
-                        {
-                            self._context.get_class_reference_for_type_name(type_name)
-                            for type_name in forward_refed_types
-                        }
-                    )
+                    circular_children.append(single_union_type_base)
 
         type_alias_declaration = AST.TypeAliasDeclaration(
             type_hint=AST.TypeHint.union(*(AST.TypeHint(ref) for ref in single_union_type_references)),
             name=self._name.name.pascal_case.safe_name,
             snippet=self._snippet,
+        )
+
+        base_union_pydantic_model._pydantic_model.update_forward_refs(
+            {self._context.get_class_reference_for_type_name(type_name) for type_name in circular_children}
         )
 
         for referenced_type in all_referenced_types:

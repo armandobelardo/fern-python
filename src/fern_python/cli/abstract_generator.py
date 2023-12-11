@@ -10,7 +10,6 @@ from fern.generator_exec.resources.config import (
     GeneratorPublishConfig,
     GithubOutputMode,
 )
-
 from fern_python.codegen.project import Project, ProjectConfig
 from fern_python.generator_exec_wrapper import GeneratorExecWrapper
 

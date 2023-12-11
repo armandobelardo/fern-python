@@ -1,5 +1,4 @@
 from typing import Tuple
-
 import fern.ir.resources as ir_types
 from fern.generator_exec.resources.config import GeneratorConfig
 
