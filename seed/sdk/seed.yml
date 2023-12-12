@@ -1,4 +1,4 @@
-irVersion: v30
+irVersion: v31
 docker: fernapi/fern-python-sdk:latest
 dockerCommand: docker build -f ./docker/sdk/Dockerfile -t fernapi/fern-python-sdk:latest .
 language: python
@@ -26,3 +26,8 @@ fixtures:
         extra_dependencies:
           boto3: 1.28.57
       outputFolder: extra_dependencies
+scripts:
+  - docker: mwalbeck/python-poetry:1.7-3.11
+    commands:
+      - poetry install
+      - poetry run mypy .

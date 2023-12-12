@@ -90,7 +90,7 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
             )
             base_models = []
             if single_union_type_base is not None:
-                base_models.append(self._context.get_class_reference_for_type_name(single_union_type_base))
+                base_models.append(self._context.get_class_reference_for_type_id(single_union_type_base.type_id))
                 all_referenced_types.append(ir_types.TypeReference.factory.named(single_union_type_base))
 
             if class_reference_for_base is not None:
@@ -131,23 +131,27 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
 
                 # we assume that the forward-refed types are the ones
                 # that circularly reference this union type
-                referenced_types: Set[ir_types.DeclaredTypeName] = single_union_type.shape.visit(
-                    same_properties_as_object=lambda type_name: self._context.get_referenced_types_of_type_declaration(
-                        self._context.get_declaration_for_type_name(type_name),
-                    ),
+                referenced_type_ids: List[ir_types.TypeId] = single_union_type.shape.visit(
+                    same_properties_as_object=lambda type_name: self._context.get_referenced_types(type_name.type_id),
                     single_property=lambda single_property: self._context.get_referenced_types_of_type_reference(
                         single_property.type
                     ),
                     no_properties=lambda: [],
                 )
 
-                if self._name in referenced_types:
+                if self._name.type_id in referenced_type_ids and single_union_type_base is not None:
                     # when calling update_forward_refs, Pydantic will throw
                     # if an inherited field's type is not defined in this
                     # file. https://github.com/pydantic/pydantic/issues/4902.
                     # as a workaround, we explicitly pass references to update_forward_refs
                     # so they are in scope
-                    circular_children.append(single_union_type_base)
+                    circular_children.append(single_union_type_base.type_id)
+
+        # If you've found circular references run update_forward_refs
+        if len(circular_children) > 0:
+            base_union_pydantic_model._pydantic_model.update_forward_refs(
+                {self._context.get_class_reference_for_type_id(type_id) for type_id in circular_children}
+            )
 
         type_alias_declaration = AST.TypeAliasDeclaration(
             type_hint=AST.TypeHint.union(*(AST.TypeHint(ref) for ref in single_union_type_references)),
@@ -155,17 +159,13 @@ class SimpleDiscriminatedUnionGenerator(AbstractTypeGenerator):
             snippet=self._snippet,
         )
 
-        base_union_pydantic_model._pydantic_model.update_forward_refs(
-            {self._context.get_class_reference_for_type_name(type_name) for type_name in circular_children}
-        )
-
         for referenced_type in all_referenced_types:
-            for type_name in self._context.get_type_names_in_type_reference(referenced_type):
+            for type_id in self._context.get_type_names_in_type_reference(referenced_type):
                 type_alias_declaration.add_ghost_reference(
-                    self._context.get_class_reference_for_type_name(
-                        type_name,
+                    self._context.get_class_reference_for_type_id(
+                        type_id,
                         must_import_after_current_declaration=lambda other_type_name: self._context.does_type_reference_other_type(
-                            other_type_name, type_name
+                            other_type_name.type_id, type_id
                         ),
                     ),
                 )
