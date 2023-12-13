@@ -1,0 +1,61 @@
+name: seed_container
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  file_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      deps_changed: ${{ steps.changes.outputs.deps }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            deps:
+              - 'poetry.lock'
+
+  seed_docker:
+    needs: file_changes
+    if: ${{ needs.file_changes.outputs.deps_changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: fernapi
+          password: ${{ secrets.FERN_API_DOCKERHUB_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: fernapi/python-seed
+          # Tagging latest, but also adding in a manual semver version for easy back referencing
+          tags: |
+            type=semver,pattern={{version}},value=0.0.1
+            type=sha
+            latest
+
+        # TODO: Only publish one base image for Seed if this becomes a monorepo
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./docker/seed/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          # use short SHA if modded, or just use latest if nothing changed
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

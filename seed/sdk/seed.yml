@@ -27,7 +27,9 @@ fixtures:
           boto3: 1.28.57
       outputFolder: extra_dependencies
 scripts:
-  - docker: mwalbeck/python-poetry:1.7-3.11
+  - docker: fernapi/python-seed:latest
     commands:
-      - poetry install
+      - pyenv shell 3.8
+      - poetry run mypy .
+      - pyenv shell 3.9
       - poetry run mypy .
