@@ -7,8 +7,6 @@ on:
   workflow_call:
 
 jobs:
-  build_seed:
-    uses: ./.github/workflows/seed-container.yml
   compile:
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +54,9 @@ jobs:
 
       - name: Install Dependencies
         run: poetry install
+
+      - name: Build seed docker base
+        run: docker build . -f docker/seed/Dockerfile -t fernapi/python-seed
 
       - name: Install Seed
         run: npm install -g @fern-api/seed-cli@0.15.16
