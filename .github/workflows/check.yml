@@ -55,7 +55,7 @@ jobs:
       - name: Install Dependencies
         run: poetry install
 
-      - name: Build seed docker base
+      - name: Build seed docker for test
         run: docker build . -f docker/seed/Dockerfile -t fernapi/python-seed
 
       - name: Install Seed
