@@ -32,4 +32,4 @@ scripts:
       - pyenv global 3.8
       - dmypy run .
       - pyenv global 3.9
-      - dmypy run mypy .
+      - dmypy run .
