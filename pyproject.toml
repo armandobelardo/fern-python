@@ -15,11 +15,9 @@ fern-fern-ir-v31 = "^0.0.3275"
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.2"
 mypy = "^0.971"
-black = "^22.6.0"
-flake8 = "^5.0.4"
-isort = "^5.10.1"
 pre-commit = "^2.20.0"
 snapshottest = "^0.6.0"
+ruff = "^0.1.8"
 
 [[tool.poetry.source]]
 name = "fern-prod"
@@ -30,13 +28,10 @@ secondary = true
 [tool.poetry.group.dev.dependencies]
 pytest-only = "^2.0.0"
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-target-version = ['py38']
+target-version = 'py38'
 include = '\.pyi?$'
-
-[tool.isort]
-profile = "black"
 
 [tool.pytest.ini_options]
 testpaths = [ "tests" ]
