@@ -29,8 +29,7 @@ fixtures:
 scripts:
   - docker: fernapi/python-seed
     commands:
-      - poetry install
       - pyenv global 3.8
-      - poetry run mypy .
+      - dmypy run .
       - pyenv global 3.9
-      - poetry run mypy .
+      - dmypy run mypy .
