@@ -1,6 +1,7 @@
 FROM python:3.10
 COPY pyproject.toml ./pyproject.toml
 COPY poetry.lock ./poetry.lock
+COPY ./src ./src
 
 
 # Setup pyenv
