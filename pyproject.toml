@@ -31,7 +31,7 @@ pytest-only = "^2.0.0"
 [tool.ruff]
 line-length = 120
 target-version = 'py38'
-include = '\.pyi?$'
+extend-include = ['*.pyi']
 
 [tool.pytest.ini_options]
 testpaths = [ "tests" ]
