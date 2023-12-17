@@ -1,4 +1,4 @@
-from typing import Optional, Sequence, Tuple
+from typing import Optional, Tuple
 
 import fern.ir.resources as ir_types
 from fern.generator_exec.resources.config import GeneratorConfig
