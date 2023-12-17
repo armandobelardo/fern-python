@@ -332,7 +332,7 @@ pip install --upgrade {project._project_config.package_name}
                 return
             project.add_file(context.generator_config.output.snippet_filepath, snippets.json(indent=4))
 
-    def get_sorted_modules(self) -> Sequence[str]:
+    def get_sorted_modules(self) -> None:
         return None
 
     def is_flat_layout(
