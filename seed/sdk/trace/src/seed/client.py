@@ -4,16 +4,16 @@ import typing
 
 import httpx
 
+from .admin.client import AdminClient, AsyncAdminClient
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import SeedTraceEnvironment
-from .resources.admin.client import AdminClient, AsyncAdminClient
-from .resources.homepage.client import AsyncHomepageClient, HomepageClient
-from .resources.migration.client import AsyncMigrationClient, MigrationClient
-from .resources.playlist.client import AsyncPlaylistClient, PlaylistClient
-from .resources.problem.client import AsyncProblemClient, ProblemClient
-from .resources.submission.client import AsyncSubmissionClient, SubmissionClient
-from .resources.sysprop.client import AsyncSyspropClient, SyspropClient
-from .resources.v_2.client import AsyncV2Client, V2Client
+from .homepage.client import AsyncHomepageClient, HomepageClient
+from .migration.client import AsyncMigrationClient, MigrationClient
+from .playlist.client import AsyncPlaylistClient, PlaylistClient
+from .problem.client import AsyncProblemClient, ProblemClient
+from .submission.client import AsyncSubmissionClient, SubmissionClient
+from .sysprop.client import AsyncSyspropClient, SyspropClient
+from .v_2.client import AsyncV2Client, V2Client
 
 
 class SeedTrace:
