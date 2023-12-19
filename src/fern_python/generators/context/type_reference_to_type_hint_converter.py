@@ -38,35 +38,22 @@ class TypeReferenceToTypeHintConverter:
         name: ir_types.DeclaredTypeName,
         must_import_after_current_declaration: Optional[Callable[[ir_types.DeclaredTypeName], bool]],
     ) -> AST.TypeHint:
-        return self._context.get_declaration_for_type_id(name.type_id).shape.visit(
-            alias=lambda alias_td: self.get_type_hint_for_type_reference(
-                alias_td.resolved_type, must_import_after_current_declaration
+        is_primative = self._context.get_declaration_for_type_id(name.type_id).shape.visit(
+            alias=lambda alias_td: alias_td.resolved_type.visit(
+                container=lambda c: False, named=lambda n: False, primitive=lambda p: True, unknown=lambda: False
             ),
-            enum=lambda enum_td: AST.TypeHint.set(
-                self._get_type_hint_for_named(
-                    type_name=name,
-                    must_import_after_current_declaration=must_import_after_current_declaration,
-                )
-            ),
-            object=lambda object_td: AST.TypeHint.list(
-                self._get_type_hint_for_named(
-                    type_name=name,
-                    must_import_after_current_declaration=must_import_after_current_declaration,
-                )
-            ),
-            union=lambda union_td: AST.TypeHint.list(
-                self._get_type_hint_for_named(
-                    type_name=name,
-                    must_import_after_current_declaration=must_import_after_current_declaration,
-                )
-            ),
-            undiscriminated_union=lambda union_td: AST.TypeHint.list(
-                self._get_type_hint_for_named(
-                    type_name=name,
-                    must_import_after_current_declaration=must_import_after_current_declaration,
-                )
-            ),
+            enum=lambda enum_td: True,
+            object=lambda object_td: False,
+            union=lambda union_td: False,
+            undiscriminated_union=lambda union_td: False,
         )
+        inner_hint = self._get_type_hint_for_named(
+            type_name=name,
+            must_import_after_current_declaration=must_import_after_current_declaration,
+        )
+        if is_primative:
+            return AST.TypeHint.set(inner_hint)
+        return AST.TypeHint.list(inner_hint)
 
     def _get_type_hint_for_container(
         self,
