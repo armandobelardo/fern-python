@@ -96,6 +96,7 @@ class PlaylistClient:
 
             - multi_line_docs: str. I'm a multiline
                                     description
+
             - optional_multiple_field: typing.Optional[typing.Union[str, typing.List[str]]].
 
             - multiple_field: typing.Union[str, typing.List[str]].
@@ -285,6 +286,7 @@ class AsyncPlaylistClient:
 
             - multi_line_docs: str. I'm a multiline
                                     description
+
             - optional_multiple_field: typing.Optional[typing.Union[str, typing.List[str]]].
 
             - multiple_field: typing.Union[str, typing.List[str]].
