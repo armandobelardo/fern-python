@@ -167,7 +167,7 @@ class DiscriminatedUnionWithUtilsGenerator(AbstractTypeGenerator):
                         # referenced type_name circularly references this type.
                         for referenced_type_id in self._context.get_referenced_types(self._name.type_id):
                             if self._context.does_type_reference_other_type(referenced_type_id, self._name.type_id):
-                                self.add_ghost_reference(referenced_type_id)
+                                external_pydantic_model.add_ghost_reference(referenced_type_id)
 
             root_type = AST.TypeHint.union(
                 *(
