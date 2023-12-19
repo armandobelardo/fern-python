@@ -66,6 +66,7 @@ class FernAwarePydanticModel:
             orm_mode=custom_config.orm_mode,
             smart_union=custom_config.smart_union,
         )
+        self._forward_refed_types = []
         self._pydantic_model.add_json_encoder(
             key=AST.Expression(
                 AST.ClassReference(
@@ -134,6 +135,7 @@ class FernAwarePydanticModel:
         is_circular_reference = self._context.do_types_reference_each_other(self._type_name.type_id, type_name.type_id)
         if is_circular_reference:
             self._model_contains_forward_refs = True
+            self._forward_refed_types.append(type_name.type_id)
         return is_circular_reference
 
     def add_method(
@@ -200,8 +202,10 @@ class FernAwarePydanticModel:
         self._override_json()
         self._override_dict()
         if self._model_contains_forward_refs:
-            self._pydantic_model.update_forward_refs()
-        self._pydantic_model.finish()
+            self._pydantic_model.update_forward_refs(
+                {self._context.get_class_reference_for_type_id(type_id) for type_id in self._forward_refed_types}
+            )
+            self._pydantic_model.finish()
 
     def _get_validators_generator(self) -> ValidatorsGenerator:
         root_type = self._pydantic_model.get_root_type()
