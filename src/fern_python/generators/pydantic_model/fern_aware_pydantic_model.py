@@ -66,7 +66,7 @@ class FernAwarePydanticModel:
             orm_mode=custom_config.orm_mode,
             smart_union=custom_config.smart_union,
         )
-        self._forward_refed_types = []
+        self._forward_refed_types: list[ir_types.TypeId] = []
         self._pydantic_model.add_json_encoder(
             key=AST.Expression(
                 AST.ClassReference(
@@ -205,6 +205,12 @@ class FernAwarePydanticModel:
             self._pydantic_model.update_forward_refs(
                 {self._context.get_class_reference_for_type_id(type_id) for type_id in self._forward_refed_types}
             )
+
+            if self._type_name is not None:
+                type_id = self._type_name.type_id
+                for referenced_type_id in self._context.get_referenced_types(type_id):
+                    if self._context.does_type_reference_other_type(referenced_type_id, type_id):
+                        self.add_ghost_reference(referenced_type_id)
             self._pydantic_model.finish()
 
     def _get_validators_generator(self) -> ValidatorsGenerator:

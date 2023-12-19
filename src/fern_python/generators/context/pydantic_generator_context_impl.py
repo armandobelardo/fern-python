@@ -32,7 +32,9 @@ class PydanticGeneratorContextImpl(PydanticGeneratorContext):
         self,
         type_reference: ir_types.TypeReference,
         must_import_after_current_declaration: Optional[Callable[[ir_types.DeclaredTypeName], bool]] = None,
-        check_is_circular_reference: Optional[Callable[[ir_types.DeclaredTypeName], bool]] = None,
+        check_is_circular_reference: Optional[
+            Callable[[ir_types.DeclaredTypeName, ir_types.DeclaredTypeName], bool]
+        ] = None,
     ) -> AST.TypeHint:
         return self._type_reference_to_type_hint_converter.get_type_hint_for_type_reference(
             type_reference,
