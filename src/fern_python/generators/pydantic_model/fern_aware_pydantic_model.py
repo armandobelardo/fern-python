@@ -205,13 +205,6 @@ class FernAwarePydanticModel:
         self._override_json()
         self._override_dict()
         if self._model_contains_forward_refs:
-            # for type_id in self._forward_refed_types:
-            #     class_reference = self._context.get_class_reference_for_type_id(type_id)
-            #     class_references.add(class_reference)
-            #     self.add_ghost_reference_by_reference(class_reference)
-
-            # self._pydantic_model.update_forward_refs(class_references)
-
             self._pydantic_model.update_forward_refs(
                 {self._context.get_class_reference_for_type_id(type_id) for type_id in self._forward_refed_types}
             )
