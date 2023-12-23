@@ -30,7 +30,6 @@ class UndiscriminatedUnionGenerator(AbstractTypeGenerator):
         type_alias_declaration = AST.TypeAliasDeclaration(
             type_hint=AST.TypeHint.union(
                 *(
-                    # TODO: make the circular deps str refs only
                     self._context.get_type_hint_for_type_reference(
                         member.type,
                         check_is_circular_reference=lambda other_type_name, current_type_name: self._context.does_type_reference_other_type(
