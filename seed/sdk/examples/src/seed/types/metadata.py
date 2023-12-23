@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-import datetime as dt
 import typing
 
 import typing_extensions
-
-from ..core.datetime_utils import serialize_datetime
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -32,11 +29,6 @@ class Base(pydantic.BaseModel):
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().dict(**kwargs_with_defaults)
-
-    class Config:
-        frozen = True
-        smart_union = True
-        json_encoders = {dt.datetime: serialize_datetime}
 
 
 class Metadata_Html(Base):
