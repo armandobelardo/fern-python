@@ -3,7 +3,6 @@
 import datetime as dt
 import typing
 
-from ...core.datetime_utils import serialize_datetime
 from ..commons.language import Language
 from .submission_type_state import SubmissionTypeState
 
@@ -26,7 +25,3 @@ class GetSubmissionStateResponse(pydantic.BaseModel):
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().dict(**kwargs_with_defaults)
-
-    class Config:
-        allow_population_by_field_name = True
-        json_encoders = {dt.datetime: serialize_datetime}

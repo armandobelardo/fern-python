@@ -2,8 +2,6 @@
 
 from ...types.object.types.object_with_optional_field import ObjectWithOptionalField
 import typing
-import datetime as dt
-from ...core.datetime_utils import serialize_datetime
 
 try:
     import pydantic.v1 as pydantic # type: ignore
@@ -20,7 +18,3 @@ class PostWithObjectBody(pydantic.BaseModel):
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
         kwargs_with_defaults: typing.Any = { "by_alias": True, "exclude_unset": True, **kwargs }
         return super().dict(**kwargs_with_defaults)
-    class Config:
-        allow_population_by_field_name = True
-        extra = pydantic.Extra.forbid
-        json_encoders = {dt.datetime: serialize_datetime}

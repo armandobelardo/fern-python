@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import datetime as dt
 import typing
 
-from ..core.datetime_utils import serialize_datetime
 from .type import Type
 
 try:
@@ -42,7 +40,3 @@ class Object(pydantic.BaseModel):
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().dict(**kwargs_with_defaults)
-
-    class Config:
-        extra = pydantic.Extra.forbid
-        json_encoders = {dt.datetime: serialize_datetime}
